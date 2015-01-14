@@ -1,3 +1,28 @@
+<?php include 'database.php'; ?>
+
+<?php
+	//QUESTIONS
+	//Set question number
+	$number = (int) $_GET['n'];
+	
+	//Get question
+	$query = "SELECT * FROM questions
+			WHERE question_number = $number";
+		
+	//Get result
+	$result = $mysqli->query($query) or die ($mysqli->error.__LINE__);
+	
+	$question = $result->fetch_assoc();
+	
+	//CHOICES
+	//Get choices
+	$query = "SELECT * FROM choices
+			WHERE question_number = $number";
+		
+	//Get results
+	$choices = $mysqli->query($query) or die ($mysqli->error.__LINE__);
+?>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -17,14 +42,13 @@
 			<div class = "container">
 				<div class = "current">Question 1 of 5</div>
 				<p class = "question">
-					Which animal is found on the British Pathe logo?
+					<?php echo $question['text']; ?>
 				</p>
 				<form method = "post" action = "process.php">
 					<ul class = "choices">
-						<li><input name = "choice" type = "radio" value = "1" />A cockerel</li>
-						<li><input name = "choice" type = "radio" value = "1" />A hen</li>
-						<li><input name = "choice" type = "radio" value = "1" />A bullock</li>
-						<li><input name = "choice" type = "radio" value = "1" />A crocodile</li>
+						<?php while ($row = $choices->fetch_assoc()) : ?>
+							<li><input name = "choice" type = "radio" value = "<?php echo $row['id']; ?>" /><?php echo $row['text']; ?> </li>
+						<?php endwhile; ?>
 					</ul>
 					<input type = "submit" value = "Submit" />
 				</form>
