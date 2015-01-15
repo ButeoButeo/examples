@@ -1,14 +1,13 @@
 <?php include 'database.php'; ?>
+<?php session_start(); ?>
 
 <?php
 	//QUESTIONS
 	//Set question number
 	$number = (int) $_GET['n'];
-	
 	//Get question
 	$query = "SELECT * FROM questions
 			WHERE question_number = $number";
-		
 	//Get result
 	$result = $mysqli->query($query) or die ($mysqli->error.__LINE__);
 	
@@ -18,9 +17,15 @@
 	//Get choices
 	$query = "SELECT * FROM choices
 			WHERE question_number = $number";
-		
 	//Get results
 	$choices = $mysqli->query($query) or die ($mysqli->error.__LINE__);
+	
+	//TOTAL
+	//Get total question
+	$query = "SELECT * FROM `questions`";
+	//Get result
+	$results = $mysqli->query($query) or die($mysqli->error.__LINE__);
+	$total = $results->num_rows;
 ?>
 
 <!DOCTYPE html>
@@ -40,7 +45,7 @@
 		
 		<main>
 			<div class = "container">
-				<div class = "current">Question 1 of 5</div>
+				<div class = "current">Question <?php echo $question['question_number']; ?> of <?php echo $total; ?></div>
 				<p class = "question">
 					<?php echo $question['text']; ?>
 				</p>
@@ -51,6 +56,7 @@
 						<?php endwhile; ?>
 					</ul>
 					<input type = "submit" value = "Submit" />
+					<input type = "hidden" name = "number" value = "<?php echo $number; ?>" />
 				</form>
 			</div>
 		</main>
