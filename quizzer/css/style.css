@@ -39,6 +39,7 @@ a.start {
 	background: #f4f4f4;
 	border: 1 px dotted #ccc;
 	padding: 6px 13px;
+	margin: 10px 0;
 }
 
 .current {
