@@ -8,7 +8,7 @@
 		$category = $_GET['category'];
 		
 		//Create Query
-		$query = "SELECT * FROM posts WHERE category = ".$category."ORDER BY id DESC";
+		$query = "SELECT * FROM posts WHERE category = '".$category."'ORDER BY id DESC";
 		//Run Query
 		$posts = $db->select($query);
 	} else {
