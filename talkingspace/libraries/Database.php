@@ -14,7 +14,7 @@ class Database {
 		$dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbname;
 		// Set options
 		$options = array (
-				PDO::ATTR_PERSISTENT => true,
+				PDO::ATTR_PERSISTENT => false,
 				PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION 
 		);
 		// Create a new PDO instanace

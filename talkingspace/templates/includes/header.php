@@ -10,6 +10,12 @@
     <link href="<?php echo BASE_URI; ?>templates/css/bootstrap.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="<?php echo BASE_URI; ?>templates/css/custom.css" rel="stylesheet">
+	 <?php
+    //Check if title is set, if not assign it
+    if(!isset($title)){
+    	$title = SITE_TITLE;
+    }
+    ?>
   </head>
 
   <body>
@@ -23,13 +29,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.html">TalkingSpace</a>
+          <a class="navbar-brand" href="index.php">TalkingSpace</a>
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li class="active"><a href="index.html">Home</a></li>
-            <li><a href="register.html">Create An Account</a></li>
-            <li><a href="create.html">Create Topic</a></li>
+            <li class="active"><a href="index.php">Home</a></li>
+            <li><a href="register.php">Create An Account</a></li>
+            <li><a href="create.php">Create Topic</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -40,7 +46,7 @@
 			<div class="col-md-8">
 				<div class="main-col">
 					<div class="block">
-						<h1 class="pull-left">Welcome to Talkingspace</h1>
+						<h1 class="pull-left"><?php echo $title; ?></h1>
 						<h4 class="pull-right">A simple PHP forum engine</h4>
 						<div class="clearfix"></div>
 						<hr>
