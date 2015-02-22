@@ -30,7 +30,7 @@
 					<ul>
 						<li><strong><?php echo $reply->username; ?></strong></li>
 						<li><?php echo userPostCount($reply->user_id); ?> Posts</li>
-						<li><a href="<?php echo BASE_URI; ?>topics.php?user=<?php echo $reply->user_id; ?>">View Topics</a>
+						<li><a href="<?php echo BASE_URI; ?>topics.php?user=<?php echo $reply->user_id; ?>">View Topics</a></li>
 					</ul>
 				</div>
 			</div>
@@ -45,13 +45,17 @@
 					
 				</ul>
 				<h3>Reply To Topic</h3>
-				<form role="form">				
+				<?php if (isLoggedIn()) : ?>
+				<form role="form" method = "post" action = "topic.php?id=<?php echo $topic->id; ?>">				
   					<div class="form-group">
-						<textarea id="reply" rows="10" cols="80" class="form-control" name="reply"></textarea>
+						<textarea id="reply" rows="10" cols="80" class="form-control" name="body"></textarea>
 						<script>
 							CKEDITOR.replace( 'reply' );
             			</script>
   					</div>
- 					 <button type="submit" class="btn btn-default">Submit</button>
+ 					 <button name = "do_reply" type="submit" class="btn btn-default">Submit</button>
 				</form>
+				<?php else : ?>
+					<p>Please Login to Reply</p>
+				<?php endif; ?>
 <?php include('includes/footer.php'); ?>	
