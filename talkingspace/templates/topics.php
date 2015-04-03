@@ -1,35 +1,41 @@
-<?php include('includes/header.php'); ?>	
-<ul id="topics">
-	<?php if($topics) : ?>
-		<?php foreach($topics as $topic) : ?>
-		<li class="topic">
-			<div class="row">
-				<div class="col-md-2">
-					<img class="avatar pull-left" src="images/avatars/<?php echo $topic->avatar; ?>" />
-				</div>
-				<div class="col-md-10">
-					<div class="topic-content pull-right">
-						<h3><a href="topic.html"><?php echo $topic->title; ?></a></h3>
-						<div class="topic-info">
-							<a href="topics.php?category=<?php echo urlFormat($topic->category_id); ?>"><?php echo $topic->name; ?></a> >> 
-							<a href="topics.php?user=<?php echo urlFormat($topic->user_id); ?>"><?php echo $topic->username; ?></a> >> 
-							<?php echo formatDate($topic->create_date); ?>
-							<span class="badge pull-right"><?php echo replyCount($topic->id); ?></span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</li>
-		<?php endforeach ; ?>
-					
-						</ul>
-	<?php else : ?>
-		<p>No Topics To Display</p>
-	<?php endif; ?>
-						<h3>Forum Statistics</h3>
-					<ul>
-						<li>Total Number of Users: <strong>52</strong></li>
-						<li>Total Number of Topics: <strong><?php echo $totalTopics; ?></strong></li>
-						<li>Total Number of Categories: <strong><?php echo $totalCategories; ?></strong></li>
-					</ul>
-<?php include('includes/footer.php'); ?>	
+<?php require('core/init.php'); ?>
+
+<?php
+//Create Topics Object
+$topic = new Topic;
+
+//Create User Object
+$user = new User;
+
+//Get category From URL
+$category = isset($_GET['category']) ? $_GET['category'] : null;
+
+//Get user From URL
+$user_id = isset($_GET['user']) ? $_GET['user'] : null;
+
+//Get Template & Assign Vars
+$template = new Template('templates/topics.php');
+$template->totalUsers = $user->getTotalUsers();
+
+//Assign Template Variables
+if(isset($category)){
+	$template->topics = $topic->getByCategory($category);
+	$template->title = 'Posts In "'.$topic->getCategory($category)->name.'"';
+}
+
+//Check For User Filter
+if(isset($user_id)){
+	$template->topics = $topic->getByUser($user_id);
+	//$template->title = 'Posts By "'.$user->getUser($user_id)->username.'"';
+}
+
+//Check For Category Filter
+if(!isset($category) && !isset($user_id)){
+	$template->topics = $topic->getAllTopics();
+}
+
+$template->totalTopics = $topic->getTotalTopics();
+$template->totalCategories = $topic->getTotalCategories();
+
+//Display template
+echo $template;

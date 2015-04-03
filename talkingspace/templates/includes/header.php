@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome To TalkingSpace</title>
+    <title>Welcome To Forum</title>
 
    <!-- Bootstrap core CSS -->
     <link href="<?php echo BASE_URI; ?>templates/css/bootstrap.css" rel="stylesheet">
@@ -34,7 +34,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.php">TalkingSpace</a>
+          <a class="navbar-brand" href="index.php">TechForum</a>
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">

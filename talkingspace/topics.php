@@ -4,6 +4,9 @@
 //Create Topics Object
 $topic = new Topic;
 
+//Create User Object
+$user = new User;
+
 //Get category From URL
 $category = isset($_GET['category']) ? $_GET['category'] : null;
 
@@ -12,6 +15,7 @@ $user_id = isset($_GET['user']) ? $_GET['user'] : null;
 
 //Get Template & Assign Vars
 $template = new Template('templates/topics.php');
+$template->totalUsers = $user->getTotalUsers();
 
 //Assign Template Variables
 if(isset($category)){
