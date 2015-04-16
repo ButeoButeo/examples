@@ -41,6 +41,11 @@
 $route['default_controller'] = "shop";
 $route['404_override'] = '';
 
-
+$route['about'] = "shop/about";
+$route['contact'] = "shop/contact";
+$route['register'] = "users/register";
+$route['admin'] = "admin/dashboard";
+$route['admin/login'] = "admin/authenticate/login";
+$route['admin/logout'] = "admin/authenticate/logout";
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

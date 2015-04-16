@@ -1,7 +1,5 @@
 <div class="container marketing">
 	 <hr class="featurette-divider">
-		  
-
 	<div class = "row">
 		<div class="panel panel-default">
 			<div class="panel-heading panel-heading-green">
@@ -11,7 +9,11 @@
 		<div class="panel-body">
 
 			<div class="contact-image">
-			  <img src = "<?php echo base_url(); ?>assets/images/contact.jpg" />
+			<?php foreach($contact as $row) : ?>
+			<?php if (($row->id) == 7) : ?>
+			  <img src = "<?php echo base_url(); ?>assets/images/<?php echo $row->value; ?>" />
+			<?php endif; ?>
+			<?php endforeach; ?>
 			</div>
 				
 			<div class="row">
@@ -26,22 +28,31 @@
 				</div>
 
 				<div class="col-md-4" id="contact">
-				<img src = "<?php echo base_url(); ?>assets/images/general1.jpg" style="height:35px;" />
-				<hr>
-					<h4>Location:</h4>
-					<p>Address: 100 2nd Avenue</p>
-					<p>City: Seattle 500</p>
-					<p>State: Seattle, WA 98 101</p>
+					<img src = "<?php echo base_url(); ?>assets/images/general1.jpg" style="height:35px;" />
 					<hr>
-					<h4>Contact Details:</h4>
-					<p>Phone Numbers: <ul><li>+381 (0)11 4 100 2020</li><li>+381 (0)11 4 100 2520</li><li>+381 (0)11 4 100 2009</li></ul></p>
-					<p>Email: <span><a style="color:#DFCBBC" target href="mailto:mianjegovan@gmail.com">mianjegovan@gmail.com</a></span></p>
-					<p>Skype: WA 98 101</p>
+					<h4>Location:</h4></br>
+					<?php foreach($contact as $row) : ?>
+						<?php if ($row->id < 4) : ?>
+						<p><?php echo $row->key; ?>: <?php echo $row->value; ?></p>
+						<?php endif; ?>
+						<?php endforeach; ?>
 					<hr>
-					<h4>On The Web:</h4>
-					<p><a style="color:#DFCBBC" href="#">Facebook</a></p>
-					<p><a style="color:#DFCBBC" href="#">LinkedIn</a></p>
-					<p><a style="color:#DFCBBC" href="#">Twiter</a></p>
+					<h4>Contact Details:</h4></br>
+						<?php foreach($contact as $row) : ?>
+						<?php if ($row->id == 4) : ?>
+						<p><?php echo $row->key; ?>: <span><a style="color:#DFCBBC" target href="mailto:<?php echo $row->value; ?>"><?php echo $row->value; ?></a></span></p>
+						<?php endif; ?>
+						<?php if ($row->id > 4 && $row->id < 7) : ?>
+						<p><?php echo $row->key; ?>: <?php echo $row->value; ?></p>
+						<?php endif; ?>
+						<?php endforeach; ?>
+					<hr>
+					<h4>On The Web:</h4></br>
+					<?php foreach($contact as $row) : ?>
+					<?php if ($row->id > 7) : ?>
+						<p><a style="color:#DFCBBC" href="<?php echo $row->value; ?>"><?php echo $row->key; ?></a></p>
+					<?php endif; ?>
+					<?php endforeach; ?>
 					<hr>
 				</div>
 				<div class = "col-md-4" id="contact">

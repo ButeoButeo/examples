@@ -2,10 +2,18 @@
 
 class Product_model extends CI_Model {
 	
-	//Get All Products
-	public function get_products() {
-		$this->db->select('*');
-		$this->db->from('products');
+	// Get Products
+	public function get_products($order_by = null, $sort='DESC', $limit = null, $offset = 0){
+		$this->db->select('a.*, b.name as category_name, c.first_name, c.last_name');
+		$this->db->from('products as a');
+		$this->db->join('categories AS b', 'b.id = a.category_id','left');
+		$this->db->join('admins AS c', 'c.id = a.admin_id','left');
+		if($limit != null){
+			$this->db->limit($limit, $offset);
+		}
+		if($order_by != null){
+			$this->db->order_by($order_by, $sort);
+		}
 		$query = $this->db->get();
 		return $query->result();
 	}
@@ -21,9 +29,12 @@ class Product_model extends CI_Model {
 	
 	//Get Filtered Products
 	public function get_filtered_products($keywords, $order_by = null, $sort = 'DESC', $limit = null, $offset = 0){
-		$this->db->select('*');
-		$this->db->from('products');
+		$this->db->select('a.*, b.name as category_name, c.first_name, c.last_name');
+		$this->db->from('products as a');
+		$this->db->join('categories AS b', 'b.id = a.category_id','left');
+		$this->db->join('admins AS c', 'c.id = a.admin_id','left');
 		$this->db->like('title', $keywords);
+		$this->db->or_like('description', $keywords);
 		if($limit != null){
 			$this->db->limit($limit, $offset);
 		}
@@ -54,9 +65,15 @@ class Product_model extends CI_Model {
    }
 	
 	//Get Categories
-	public function get_categories() {
+	public function get_categories($order_by = null, $sort = 'DESC', $limit = null, $offset = 0){
 		$this->db->select('*');
-		$this->db->from('categories');
+		$this->db->from('categories');	
+		if($limit != null){
+			$this->db->limit($limit, $offset);
+		}
+		if($order_by != null){
+			$this->db->order_by($order_by, $sort);
+		}
 		$query = $this->db->get();
 		return $query->result();
 	}
