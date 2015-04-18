@@ -12,17 +12,10 @@
 
     <!-- Custom styles for this template -->
     <link href="<?php echo base_url(); ?>assets/css/signin.css" rel="stylesheet">
-	<style>
-	body {
-		background: url(../assets/images/admin.jpg) no-repeat;
-		background-size: cover;
-		line-height: 1.5em;
-	}
-	</style>
   </head>
 
   <body>
-
+	<img alt="full screen background image" src="<?php echo base_url(); ?>assets/images/admin.jpg" id="full-screen-background-image" />
     <div class="container">
 		<?php $attributes = array(
 								'class' => 'form-signin'
