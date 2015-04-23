@@ -64,7 +64,7 @@ class Products extends CI_Controller {
 					'specifications'	=> $this->input->post('specifications'),
 					'image'   			=> $file_data['file_name'],
 					'category_id'		=> $this->input->post('category'),
-					'admin_id'			=> $this->input->post('admin'),
+					'admin_id'			=> 1,
 					'price'				=> $this->input->post('price'),
 					'is_published'		=> $this->input->post('is_published')
 			);
