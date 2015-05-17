@@ -1,12 +1,7 @@
 <?php
-class Categories extends CI_Controller {
+class Categories extends Admin_Controller {
 	public function __construct() {
 		parent:: __construct();
-		
-		//Access Control
-		if (!$this->session->userdata('logged_in')) {
-			redirect('admin/login');
-		}
     }
 	
 	//Categories Main Index
@@ -24,7 +19,7 @@ class Categories extends CI_Controller {
 		//Validation Rules
 		$this->form_validation->set_rules('name','Name','trim|required|min_length[4]|xss_clean');
 	
-		if($this->form_validation->run() == FALSE){
+		if(!$this->form_validation->run()) {
 			//Views
 			$data['main_content'] = 'admin/categories/add';
 			$this->load->view('admin/layouts/main', $data);

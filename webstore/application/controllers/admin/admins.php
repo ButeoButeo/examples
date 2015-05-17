@@ -1,12 +1,7 @@
 <?php
-class Admins extends CI_Controller {
+class Admins extends Admin_Controller {
 	public function __construct() {
 		parent:: __construct();
-		
-		//Access Control
-		if (!$this->session->userdata('logged_in')) {
-			redirect('admin/login');
-		}
     }
 	
 	public function index(){
@@ -27,7 +22,7 @@ class Admins extends CI_Controller {
 		$this->form_validation->set_rules('username','username','trim|required|min_length[3]|xss_clean');
 		$this->form_validation->set_rules('password', 'Password', 'required|matches[confirm_password]');	
 	
-		if($this->form_validation->run() == FALSE){
+		if(!$this->form_validation->run()) {
 			//Views
 			$data['main_content'] = 'admin/admins/add';
 			$this->load->view('admin/layouts/main', $data);

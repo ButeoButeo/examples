@@ -1,12 +1,7 @@
 <?php
-class Home extends CI_Controller {
+class Home extends Admin_Controller {
 	public function __construct() {
 		parent:: __construct();
-		
-		//Access Control
-		if (!$this->session->userdata('logged_in')) {
-			redirect('admin/login');
-		}
     }
 	
 	public function index() {
@@ -35,7 +30,7 @@ class Home extends CI_Controller {
 		$this->form_validation->set_rules('button_link','Button Link','trim|required|xss_clean');
 		$this->form_validation->set_rules('is_published','Publish','required');
 
-		if($this->form_validation->run() == FALSE || !$this->upload->do_upload('userfile')){
+		if(!$this->form_validation->run() || !$this->upload->do_upload('userfile')){
 			//Views
 			$data['error'] = $this->upload->display_errors('<p class="alert alert-dismissable alert-danger">' , '</p>');
 			$data['main_content'] = 'admin/home/add';

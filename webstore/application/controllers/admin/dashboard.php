@@ -1,12 +1,7 @@
 <?php
-class Dashboard extends CI_Controller {
+class Dashboard extends Admin_Controller {
 	public function __construct() {
 		parent:: __construct();
-		
-		//Access Control
-		if (!$this->session->userdata('logged_in')) {
-			redirect('admin/login');
-		}
     }
 	
 	public function index() {

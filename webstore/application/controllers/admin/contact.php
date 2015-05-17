@@ -1,12 +1,7 @@
 <?php
-class Contact extends CI_Controller {
+class Contact extends Admin_Controller {
 	public function __construct() {
 		parent:: __construct();
-		
-		//Access Control
-		if (!$this->session->userdata('logged_in')) {
-			redirect('admin/login');
-		}
     }
 	
 	public function index() {
@@ -33,7 +28,7 @@ class Contact extends CI_Controller {
 		
 		$data['contact'] = $this->Settings_model->get_single_contact_data($id);
 	
-		if($this->form_validation->run() == FALSE){
+		if(!$this->form_validation->run()) {
 			//Views
 			$data['main_content'] = 'admin/contact/edit';
 			$this->load->view('admin/layouts/main', $data);

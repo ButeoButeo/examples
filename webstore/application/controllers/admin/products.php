@@ -1,16 +1,11 @@
 <?php
-class Products extends CI_Controller {
-	public function __construct() {
-		parent:: __construct();
-		
-		//Access Control
-		if (!$this->session->userdata('logged_in')) {
-			redirect('admin/login');
-		}
-    }
-	
-	public function index() {
-		if(!empty($this->input->post('keywords'))){
+class Products extends Admin_Controller {
+
+    /**
+     *
+     */
+    public function index() {
+		if($this->input->post('keywords')){
 			//Get Filtered products
 			$data['products'] = $this->Product_model->get_filtered_products($this->input->post('keywords'),'id','DESC',10);
 		} else {
@@ -50,7 +45,7 @@ class Products extends CI_Controller {
 		
 		$data['admins'] = $this->Settings_model->get_admins();
 		
-		if($this->form_validation->run() == FALSE || !$this->upload->do_upload('userfile')){
+		if(!$this->form_validation->run() || !$this->upload->do_upload('userfile')){
 			//Views
 			$data['error'] = $this->upload->display_errors('<p class="alert alert-dismissable alert-danger">' , '</p>');
 			$data['main_content'] = 'admin/products/add';
