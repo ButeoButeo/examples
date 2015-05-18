@@ -2,7 +2,8 @@
 class Products extends Admin_Controller {
 
     /**
-     *
+     * Get Products, Categories and Adimins
+     * Load View
      */
     public function index() {
 		if($this->input->post('keywords')){
@@ -37,7 +38,7 @@ class Products extends Admin_Controller {
 		$this->form_validation->set_rules('title','Title','trim|required|min_length[4]|xss_clean');
 		$this->form_validation->set_rules('description','Description','trim|required|xss_clean');
 		$this->form_validation->set_rules('specifications','Specifications','trim|required|xss_clean');
-		$this->form_validation->set_rules('price','Price','trim|required|mxss_clean');
+		$this->form_validation->set_rules('price','Price','trim|required|xss_clean');
 		$this->form_validation->set_rules('is_published','Publish','required');
 		$this->form_validation->set_rules('category','Category','required');
 		
@@ -70,8 +71,8 @@ class Products extends Admin_Controller {
 			//Create Message
 			$this->session->set_flashdata('product_saved', 'Your product has been saved');
 			
-			//Redirect to pages
-			redirect('admin/products');
+			//Redirect to products
+            redirect(Admin_Controller::products);
 		}
 	}
 	
@@ -124,12 +125,15 @@ class Products extends Admin_Controller {
 			//Create Message
 			$this->session->set_flashdata('product_saved', 'Your product has been saved');
 				
-			//Redirect to pages
-			redirect('admin/products');
+			//Redirect to products
+			redirect(Admin_Controller::products);
 		}
 	}
-	
-	//Publish Product
+
+    /**
+     * Publish product
+     * Display message and redirect
+     */
 	public function publish($id){
 		//Publish Menu Items in array
 		$this->Settings_model->publish_product($id);
@@ -138,12 +142,14 @@ class Products extends Admin_Controller {
 		$this->session->set_flashdata('product_published', 'Your product has been published');
 	
 		//Redirect to products
-		redirect('admin/products');
+        redirect(Admin_Controller::products);
 	}
-	 
-	 
-	//Unpublish Product
 
+
+    /**
+     * Unpublish product
+     * Display message and redirect
+     */
 	public function unpublish($id){
 		//Publish Menu Items in array
 		$this->Settings_model->unpublish_product($id);
@@ -152,10 +158,14 @@ class Products extends Admin_Controller {
 		$this->session->set_flashdata('product_unpublished', 'Your product has been unpublished');
 	
 		//Redirect to products
-		redirect('admin/products');
+        redirect(Admin_Controller::products);
 	}
-	
-	//Delete Product
+
+    /**
+     * Delete product image from folder
+     * Delete product from database
+     * Display message and redirect
+     */
 	public function delete($id){
 		//Delete Image from Folder
 		$row = $this->db->where('id',$id)->get('products')->row();
@@ -169,6 +179,6 @@ class Products extends Admin_Controller {
 		$this->session->set_flashdata('product_deleted', 'Your product has been deleted');
 	
 		//Redirect to products
-		redirect('admin/products');
+        redirect(Admin_Controller::products);
 	}
 }

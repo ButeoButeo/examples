@@ -54,7 +54,7 @@ class Home extends Admin_Controller {
 			$this->session->set_flashdata('home_saved', 'Your home page details has been saved');
 			
 			//Redirect to pages
-			redirect('admin/home');
+            redirect(Admin_Controller::home);
 		}
 	}
 	
@@ -101,11 +101,14 @@ class Home extends Admin_Controller {
 			$this->session->set_flashdata('home_saved', 'Your home page details has been saved');
 				
 			//Redirect to pages
-			redirect('admin/home');
+            redirect(Admin_Controller::home);
 		}
 	}
-	
-	//Publish Home
+
+    /**
+     * Publish home page data in database (set value to 1)
+     * Display message and redirect
+     */
 	public function publish($id){
 		//Publish Menu Items in array
 		$this->Settings_model->publish_home($id);
@@ -114,11 +117,14 @@ class Home extends Admin_Controller {
 		$this->session->set_flashdata('home_published', 'Your home settings has been published');
 	
 		//Redirect
-		redirect('admin/home');
+        redirect(Admin_Controller::home);
 	}
-	 
-	 
-	//Unpublish Home
+
+
+    /**
+     * Unpublish home page data in database (set value to 0)
+     * Display message and redirect
+     */
 	public function unpublish($id){
 		//Publish Menu Items in array
 		$this->Settings_model->unpublish_home($id);
@@ -127,10 +133,14 @@ class Home extends Admin_Controller {
 		$this->session->set_flashdata('home_unpublished', 'Your home settings has been unpublished');
 	
 		//Redirect
-		redirect('admin/home');
+        redirect(Admin_Controller::home);
 	}
-	
-	//Delete Home
+
+    /**
+     * Delete slide image from folder
+     * Delete home page data from database
+     * Display message and redirect
+     */
 	public function delete($id){
 		//Delete Image from Folder
 		$row = $this->db->where('id',$id)->get('home_settings')->row();
@@ -143,7 +153,7 @@ class Home extends Admin_Controller {
 		//Create Message
 		$this->session->set_flashdata('home_deleted', 'Your home settings has been deleted');
 	
-		//Redirect
-		redirect('admin/home');
+		//Redirect to pages
+        redirect(Admin_Controller::home);
 	}
 }

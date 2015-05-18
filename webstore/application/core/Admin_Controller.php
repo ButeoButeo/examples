@@ -2,6 +2,12 @@
 // Global Controller
 class Admin_Controller extends CI_Controller {
     /**
+     * Create Enums for Links
+     */
+    const products = 'admin/products';
+    const home = 'admin/home';
+
+    /**
      * Access Control
      */
     public function __construct() {

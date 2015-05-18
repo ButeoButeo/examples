@@ -26,7 +26,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Mia's Web Store</a>
+          <a class="navbar-brand" href="<?php echo base_url(); ?>admin/dashboard">Mia's Web Store</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
