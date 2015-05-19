@@ -1,6 +1,6 @@
 <!--Display form validation errors-->
 <?php echo validation_errors('<p class="alert alert-dismissable alert-danger">'); ?>
-<?php echo $error; ?>
+<?php echo $this->upload->display_errors('<p class="alert alert-dismissable alert-danger">' , '</p>'); ?>
 	<form action="<?php echo base_url(); ?>admin/about/add" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 	  <div class="row">
 	  <div class="col-lg-6">

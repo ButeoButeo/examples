@@ -20,7 +20,6 @@ class Products extends Admin_Controller {
 		$data['admins'] = $this->Settings_model->get_admins('id', 'DESC');
 		
 		//Load View
-		$data['error'] = '';
 		$data['main_content'] = 'admin/products/index';
 		$this->load->view('admin/layouts/main', $data);
 	}
@@ -48,7 +47,6 @@ class Products extends Admin_Controller {
 		
 		if(!$this->form_validation->run() || !$this->upload->do_upload('userfile')){
 			//Views
-			$data['error'] = $this->upload->display_errors('<p class="alert alert-dismissable alert-danger">' , '</p>');
 			$data['main_content'] = 'admin/products/add';
 			$this->load->view('admin/layouts/main', $data);
 		} else {

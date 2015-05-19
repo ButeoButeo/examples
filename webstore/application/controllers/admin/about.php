@@ -13,7 +13,6 @@ class About extends Admin_Controller {
 		$data['about'] = $this->Settings_model->get_about('id', 'DESC', 10);
 		
 		//Load View
-		$data['error'] = '';
 		$data['main_content'] = 'admin/about/index';
 		$this->load->view('admin/layouts/main', $data);
 	}
@@ -34,7 +33,6 @@ class About extends Admin_Controller {
 
 		if(!$this->form_validation->run() || !$this->upload->do_upload('userfile')){
 			//Views
-			$data['error'] = $this->upload->display_errors('<p class="alert alert-dismissable alert-danger">' , '</p>');
 			$data['main_content'] = 'admin/about/add';
 			$this->load->view('admin/layouts/main', $data);
 		} else {

@@ -9,7 +9,6 @@ class Home extends Admin_Controller {
 		$data['home'] = $this->Settings_model->get_home('id', 'DESC', 10);
 		
 		//Load View
-		$data['error'] = '';
 		$data['main_content'] = 'admin/home/index';
 		$this->load->view('admin/layouts/main', $data);
 	}
@@ -32,7 +31,6 @@ class Home extends Admin_Controller {
 
 		if(!$this->form_validation->run() || !$this->upload->do_upload('userfile')){
 			//Views
-			$data['error'] = $this->upload->display_errors('<p class="alert alert-dismissable alert-danger">' , '</p>');
 			$data['main_content'] = 'admin/home/add';
 			$this->load->view('admin/layouts/main', $data);
 		} else {
