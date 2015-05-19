@@ -3,7 +3,11 @@ class Contact extends Admin_Controller {
 	public function __construct() {
 		parent:: __construct();
     }
-	
+
+    /**
+     * Contact Main Index
+     * Fetch contact details and load view
+     */
 	public function index() {
 		//Get Contact
 		$data['contact'] = $this->Settings_model->get_contact_data('id', 'ASC', 10);
@@ -39,19 +43,19 @@ class Contact extends Admin_Controller {
 						'value'         =>  $w['file_name']
 				);
 			} else {
-				//Create contact Data Array
+				//Create Contact Data Array
 				$data = array(
 						'value'         => $this->input->post('value')
 				);
 			}
 				
-			//contact Table Insert
+			// Contact Table Insert
 			$this->Settings_model->update_contact_data($data, $id);
 				
-			//Create Message
+			// Create Message
 			$this->session->set_flashdata('contact_saved', 'Your contact details has been saved');
 				
-			//Redirect to pages
+			// Redirect to contact page
 			redirect('admin/contact/index');
 	}
 }

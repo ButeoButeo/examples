@@ -3,7 +3,11 @@ class About extends Admin_Controller {
 	public function __construct() {
 		parent:: __construct();
     }
-	
+
+    /**
+     * About Main Index
+     * Get About data and Load View
+     */
 	public function index() {
 		//Get About
 		$data['about'] = $this->Settings_model->get_about('id', 'DESC', 10);
@@ -49,8 +53,8 @@ class About extends Admin_Controller {
 			//Create Message
 			$this->session->set_flashdata('about_saved', 'Your about page details has been saved');
 			
-			//Redirect to pages
-			redirect('admin/about');
+			//Redirect to about page
+			redirect(Admin_Controller::about);
 		}
 	}
 	
@@ -78,7 +82,7 @@ class About extends Admin_Controller {
 		} else {
 			//Create About Data Array
 			$file_data = $this->upload->data();
-			$row = $this->db->where('id',$id)->get('home_settings')->row();
+			$row = $this->db->where('id',$id)->get('about_settings')->row();
 			$data = array(
 					'title'         => $this->input->post('title'),
 					'description'	=> $this->input->post('description'),
@@ -91,38 +95,48 @@ class About extends Admin_Controller {
 				
 			//Create Message
 			$this->session->set_flashdata('about_saved', 'Your about details has been saved');
-				
-			//Redirect to pages
-			redirect('admin/about');
+
+            //Redirect to about page
+            redirect(Admin_Controller::about);
 		}
 	}
-	
-	//Publish About
+
+    /**
+     * Publish about details
+     * Display message and redirect
+     */
 	public function publish($id){
-		//Publish Menu Items in array
+		//Publish about details - set value to 1
 		$this->Settings_model->publish_about($id);
 		 
 		//Create Message
 		$this->session->set_flashdata('about_published', 'Your about details has been published');
-	
-		//Redirect
-		redirect('admin/about');
+
+        //Redirect to about page
+        redirect(Admin_Controller::about);
 	}
-	 
-	 
-	//Unpublish About
+
+
+    /**
+     * Unpublish about details
+     * Display message and redirect
+     */
 	public function unpublish($id){
-		//Publish Menu Items in array
+		//Unpublish about details - set value to 0
 		$this->Settings_model->unpublish_about($id);
 		 
 		//Create Message
 		$this->session->set_flashdata('about_unpublished', 'Your about details has been unpublished');
-	
-		//Redirect
-		redirect('admin/about');
+
+        //Redirect to about page
+        redirect(Admin_Controller::about);
 	}
-	
-	//Delete About
+
+    /**
+     * Delete Image from Folder
+     * Delete from database
+     * Display message and redirect
+     */
 	public function delete($id){
 		//Delete Image from Folder
 		$row = $this->db->where('id',$id)->get('about_settings')->row();
@@ -134,8 +148,8 @@ class About extends Admin_Controller {
 		 
 		//Create Message
 		$this->session->set_flashdata('about_deleted', 'Your about details has been deleted');
-	
-		//Redirect
-		redirect('admin/about');
+
+        //Redirect to about page
+        redirect(Admin_Controller::about);
 	}
 }

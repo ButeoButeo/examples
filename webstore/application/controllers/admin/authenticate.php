@@ -1,10 +1,15 @@
 <?php 
 class Authenticate extends CI_Controller {
-	//User Login
+    /**
+     * User login
+     * Check the validity
+     * Set session and display message
+     *
+     */
 	public function login() {
 		$this->form_validation->set_rules('username','Username','trim|required|min_length[3]|xss_clean');
 		$this->form_validation->set_rules('password','Password','trim|required|min_length[3]|xss_clean');
-		if ($this->form_validation->run() == FALSE) {
+		if (!$this->form_validation->run()) {
 			//Load View
 			$this->load->view('admin/layouts/login');
 		} else {
@@ -34,8 +39,12 @@ class Authenticate extends CI_Controller {
 			}
 		}
 	}
-	
-	//User Logout
+
+    /**
+     * User logout
+     * Unset session and display message
+     *
+     */
 	public function logout() {
 		//Unset user data
 		$this->session->unset_userdata('logged_in');

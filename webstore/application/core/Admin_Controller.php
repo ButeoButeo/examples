@@ -5,7 +5,10 @@ class Admin_Controller extends CI_Controller {
      * Create Enums for Links
      */
     const products = 'admin/products';
+    const categories = 'admin/categories';
     const home = 'admin/home';
+    const about = 'admin/about';
+    const admins = 'admin/admins';
 
     /**
      * Access Control
@@ -13,7 +16,7 @@ class Admin_Controller extends CI_Controller {
     public function __construct() {
         parent:: __construct();
 
-        // Access Deny and redirect
+        // Access deny and redirect
         if (!$this->session->userdata('logged_in')) {
             redirect('admin/login');
         }

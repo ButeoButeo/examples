@@ -3,21 +3,28 @@ class Categories extends Admin_Controller {
 	public function __construct() {
 		parent:: __construct();
     }
-	
-	//Categories Main Index
+
+    /**
+     * Categories Main Index
+     * Fetch categories and load view
+     */
 	public function index() {
 		//Get Categories
 		$data['categories'] = $this->Settings_model->get_categories('id', 'DESC');
 		
-		//View
+		//Load View
 		$data['main_content'] = 'admin/categories/index';
 		$this->load->view('admin/layouts/main', $data);
 	}
-	
-	//Add Category
-	public function add(){
+
+    /**
+     * Check the validity
+     * Add category to database
+     * Display message and redirect
+     */
+	public function add() {
 		//Validation Rules
-		$this->form_validation->set_rules('name','Name','trim|required|min_length[4]|xss_clean');
+		$this->form_validation->set_rules('name','category name','trim|required|min_length[4]|xss_clean');
 	
 		if(!$this->form_validation->run()) {
 			//Views
@@ -36,16 +43,20 @@ class Categories extends Admin_Controller {
 			$this->session->set_flashdata('category_saved', 'Your category has been saved');
 				
 			//Redirect to pages
-			redirect('admin/categories');
+			redirect(Admin_Controller::categories);
 		}
 	}
-	
-	//Edit Category
-	public function edit($id){
+
+    /**
+     * Check the validity
+     * Edit category in database
+     * Display message and redirect
+     */
+	public function edit($id) {
 		//Validation Rules
-		$this->form_validation->set_rules('name','Name','trim|required|min_length[4]|xss_clean');
+		$this->form_validation->set_rules('name','category name','trim|required|min_length[4]|xss_clean');
 	
-		if($this->form_validation->run() == FALSE){
+		if (!$this->form_validation->run()) {
 			$data['category'] = $this->Settings_model->get_category($id);
 			
 			//Views
@@ -64,18 +75,21 @@ class Categories extends Admin_Controller {
 			$this->session->set_flashdata('category_saved', 'Your category has been saved');
 	
 			//Redirect to pages
-			redirect('admin/categories');
+			redirect(Admin_Controller::categories);
 		}
 	}
-	
-	//Delete Category
-	public function delete($id){
+
+    /**
+     * Delete category from database
+     * Display message and redirect
+     */
+	public function delete($id) {
 		$this->Settings_model->delete_category($id);
 			
 		//Create Message
 		$this->session->set_flashdata('category_deleted', 'Your category has been deleted');
 	
-		//Redirect to articles
-		redirect('admin/categories');
+		//Redirect to categories
+		redirect(Admin_Controller::categories);
 	}
 }
