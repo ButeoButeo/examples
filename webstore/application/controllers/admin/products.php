@@ -26,12 +26,9 @@ class Products extends Admin_Controller {
 	
 	//Add product
 	public function add(){
-		//Upload Image
-		$config = array(
-			'upload_path' => 'assets/images/products',
-			'allowed_types' => 'gif|jpg|jpeg|png'
-		);
-		$this->load->library('upload', $config);
+        //Load upload configuration
+        $upload = $this->config->item('products');
+        $this->load->library('upload', $upload);
 		
 		//Validation Rules
 		$this->form_validation->set_rules('title','Title','trim|required|min_length[4]|xss_clean');
@@ -76,13 +73,10 @@ class Products extends Admin_Controller {
 	
 	//Edit Product
 	public function edit($id){
-		//Upload Image
-		$config = array(
-			'upload_path' => 'assets/images/products',
-			'allowed_types' => 'gif|jpg|jpeg|png'
-		);
-		$this->load->library('upload', $config);
-		$this->upload->do_upload('userfile');
+        //Load upload configuration and do upload
+        $upload = $this->config->item('products');
+        $this->load->library('upload', $upload);
+        $this->upload->do_upload('userfile');
 		
 		//Validation Rules
 		$this->form_validation->set_rules('title','Title','trim|required|min_length[4]|xss_clean');
@@ -98,7 +92,7 @@ class Products extends Admin_Controller {
 		
 		$data['product'] = $this->Settings_model->get_product($id);
 	
-		if($this->form_validation->run() == FALSE){
+		if(!$this->form_validation->run()){
 			//Views
 			$data['main_content'] = 'admin/products/edit';
 			$this->load->view('admin/layouts/main', $data);

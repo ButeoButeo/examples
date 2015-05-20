@@ -15,12 +15,9 @@ class Home extends Admin_Controller {
 	
 	//Add Home
 	public function add(){
-		//Upload Image
-		$config = array(
-			'upload_path' => 'assets/images/slide',
-			'allowed_types' => 'gif|jpg|jpeg|png'
-		);
-		$this->load->library('upload', $config);
+        //Load upload configuration
+        $upload = $this->config->item('home');
+        $this->load->library('upload', $upload);
 		
 		//Validation Rules
 		$this->form_validation->set_rules('title','Title','trim|required|min_length[4]|xss_clean');
@@ -58,13 +55,10 @@ class Home extends Admin_Controller {
 	
 	//Edit Home
 	public function edit($id){
-		//Upload Image
-		$config = array(
-			'upload_path' => 'assets/images/slide',
-			'allowed_types' => 'gif|jpg|jpeg|png'
-		);
-		$this->load->library('upload', $config);
-		$this->upload->do_upload('userfile');
+        //Load upload configuration and do upload
+        $upload = $this->config->item('home');
+        $this->load->library('upload', $upload);
+        $this->upload->do_upload('userfile');
 		
 		//Validation Rules
 		$this->form_validation->set_rules('title','Title','trim|required|min_length[4]|xss_clean');

@@ -19,12 +19,9 @@ class About extends Admin_Controller {
 	
 	//Add About
 	public function add(){
-		//Upload Image
-		$config = array(
-			'upload_path' => 'assets/images/about',
-			'allowed_types' => 'gif|jpg|jpeg|png'
-		);
-		$this->load->library('upload', $config);
+        //Load upload configuration
+        $upload = $this->config->item('about');
+        $this->load->library('upload', $upload);
 		
 		//Validation Rules
 		$this->form_validation->set_rules('title','Title','trim|required|min_length[4]|xss_clean');
@@ -58,12 +55,9 @@ class About extends Admin_Controller {
 	
 	//Edit About
 	public function edit($id){
-		//Upload Image
-		$config = array(
-			'upload_path' => 'assets/images/about',
-			'allowed_types' => 'gif|jpg|jpeg|png'
-		);
-		$this->load->library('upload', $config);
+        //Load upload configuration and do upload
+        $upload = $this->config->item('about');
+        $this->load->library('upload', $upload);
 		$this->upload->do_upload('userfile');
 		
 		//Validation Rules
