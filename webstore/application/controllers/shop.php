@@ -38,42 +38,33 @@ class Shop extends CI_Controller {
 		$data['map'] = $this->googlemaps->create_map();
 		
 		$data['contact'] = $this->Settings_model->get_contact_data('id', 'ASC', 10);
-		
-		//Load View
-		$data['main_content'] = 'contact';
-		$this->load->view('layouts/main', $data);
-	}
-	
-	public function send_email() {
-		//Load Validation Library
-		$this->load->library('form_validation');
 
-		$this->form_validation->set_rules('contactname', 'Name', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('email', 'Email Address', 'trim|required|valid_email|xss_clean');
-		$this->form_validation->set_rules('subject', 'Subject', 'required');
-		$this->form_validation->set_rules('message', 'Message', 'trim|required|max_length[255]|xss_clean');
-		
-		if ($this->form_validation->run() == FALSE) {
-			//Load View
-			$data['main_content'] = 'contact';
-			$this->load->view('layouts/main', $data);
-		} else {
-			//Load Email Library
-			$this->load->library('email');
-			
-			//Set Email Values
-			$this->email->from(set_value('email'), set_value('contactname'));
-			$this->email->to('mianjegovan@gmail.com'); 
-			$this->email->subject(set_value('subject'));
-			$this->email->message(set_value('message'));
-			
-			$this->email->send();
-			
-			if ($this->email->send()) {
-				$this->session->set_flashdata('pass_message', 'Your message was successfully sent.');
-				redirect('shop/contact');
-			}
-			
-		}
+        //Load Validation Library
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules('contactname', 'Name', 'trim|required|xss_clean');
+        $this->form_validation->set_rules('email', 'Email Address', 'trim|required|valid_email|xss_clean');
+        $this->form_validation->set_rules('subject', 'Subject', 'required');
+        $this->form_validation->set_rules('message', 'Message', 'trim|required|max_length[255]|xss_clean');
+
+        if (!$this->form_validation->run()) {
+            //Load View
+            $data['main_content'] = 'contact';
+            $this->load->view('layouts/main', $data);
+        } else {
+            //Load Email Library
+            $this->load->library('email');
+
+            //Set Email Values
+            $this->email->from(set_value('email'), set_value('contactname'));
+            $this->email->to('mianjegovan@gmail.com');
+            $this->email->subject(set_value('subject'));
+            $this->email->message(set_value('message'));
+
+            if ($this->email->send()) {
+                $this->session->set_flashdata('pass_message', 'Your message was successfully sent.');
+                redirect('contact');
+            }
+        }
 	}
 }

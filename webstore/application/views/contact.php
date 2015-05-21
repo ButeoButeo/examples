@@ -6,11 +6,11 @@
 				<h3 class="panel-title">Contact Us</h3>
 			</div>
 			<?php echo $map['js']; ?>			
-		<div class="panel-body">
+		    <div class="panel-body">
 
 			<div class="contact-image">
 			<?php foreach($contact as $row) : ?>
-			<?php if (($row->id) == 7) : ?>
+			<?php if (($row->key) == 'Image') : ?>
 			  <img src = "<?php echo base_url(); ?>assets/images/<?php echo $row->value; ?>" />
 			<?php endif; ?>
 			<?php endforeach; ?>
@@ -32,24 +32,21 @@
 					<hr>
 					<h4>Location:</h4></br>
 					<?php foreach($contact as $row) : ?>
-						<?php if ($row->id < 4) : ?>
+						<?php if ($row->key == 'Address' || $row->key == 'City' || $row->key == 'State') : ?>
 						<p><?php echo $row->key; ?>: <?php echo $row->value; ?></p>
 						<?php endif; ?>
 						<?php endforeach; ?>
 					<hr>
 					<h4>Contact Details:</h4></br>
 						<?php foreach($contact as $row) : ?>
-						<?php if ($row->id == 4) : ?>
-						<p><?php echo $row->key; ?>: <span><a style="color:#DFCBBC" target href="mailto:<?php echo $row->value; ?>"><?php echo $row->value; ?></a></span></p>
-						<?php endif; ?>
-						<?php if ($row->id > 4 && $row->id < 7) : ?>
-						<p><?php echo $row->key; ?>: <?php echo $row->value; ?></p>
+                            <?php if ($row->key == 'Email' || $row->key == 'Phone' || $row->key == 'Skype') : ?>
+                                <p><?php echo $row->key; ?>: <?php echo $row->value; ?></p>
 						<?php endif; ?>
 						<?php endforeach; ?>
 					<hr>
 					<h4>On The Web:</h4></br>
 					<?php foreach($contact as $row) : ?>
-					<?php if ($row->id > 7) : ?>
+                        <?php if ($row->key == 'Facebook' || $row->key == 'LinkedIn' || $row->key == 'Twiter') : ?>
 						<p><a style="color:#DFCBBC" href="<?php echo $row->value; ?>"><?php echo $row->key; ?></a></p>
 					<?php endif; ?>
 					<?php endforeach; ?>
@@ -62,7 +59,7 @@
 				  
 				    <?php echo validation_errors('<div class = "alert alert-danger">','</div>'); ?>
 				  
-				   <form role="form" method="post" action="<?php echo base_url(); ?>shop/send_email" id="contactform">
+				   <form role="form" method="post" action="<?php echo base_url(); ?>contact" id="contactform">
 				      <?php if ($this->session->flashdata('pass_message')) : ?>
 						<div class="alert alert-success">
 						  <?php echo $this->session->flashdata('pass_message'); ?>
