@@ -15,7 +15,7 @@ class Shop extends CI_Controller {
 		$data['main_content'] = 'about';
 		$this->load->view('layouts/main', $data);
 	}
-	
+
 	public function contact() {
 		//Get State and City
 		$state = $this->db->where('id','3')->get('contact_settings')->row();
@@ -25,7 +25,7 @@ class Shop extends CI_Controller {
 		$this->load->library('googlemaps');
 		$config = array();
 		$config['center'] = $state->value.','.$city->value;
-		$config['zoom'] = 4;
+		$config['zoom'] = 5;
 		$config['map_height'] = '350px';
 		$config['map_width'] = '95%';
 		
@@ -39,15 +39,11 @@ class Shop extends CI_Controller {
 		
 		$data['contact'] = $this->Settings_model->get_contact_data('id', 'ASC', 10);
 
-        //Load Validation Library
-        $this->load->library('form_validation');
-
-        $this->form_validation->set_rules('contactname', 'Name', 'trim|required|xss_clean');
-        $this->form_validation->set_rules('email', 'Email Address', 'trim|required|valid_email|xss_clean');
-        $this->form_validation->set_rules('subject', 'Subject', 'required');
-        $this->form_validation->set_rules('message', 'Message', 'trim|required|max_length[255]|xss_clean');
-
-        if (!$this->form_validation->run()) {
+        /**
+         * Check the validity of entered data and send an email
+         * Display message and redirect
+         */
+        if (!$this->Settings_model->verify_email()) {
             //Load View
             $data['main_content'] = 'contact';
             $this->load->view('layouts/main', $data);

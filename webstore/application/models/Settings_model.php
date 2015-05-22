@@ -1,7 +1,9 @@
 <?php
 class Settings_model extends CI_Model {
-	
-	//Get Single Product
+
+    /**
+     * Fetch Additional Data From products table
+     */
 	public function get_product($id) {
 		$this->db->where('id', $id);
 		$query = $this->db->get('products');
@@ -21,7 +23,7 @@ class Settings_model extends CI_Model {
 		return true;
 	}
 	
-	// Publish Product
+	//Publish Product
 	public function publish_product($id){
 		$data = array(
                		'is_published' => 1
@@ -31,7 +33,7 @@ class Settings_model extends CI_Model {
 		$this->db->update('products', $data); 
 	}
 	
-	// Unpublish Product
+	//Unpublish Product
 	public function unpublish_product($id){
 		$data = array(
                		'is_published' => 0
@@ -41,14 +43,22 @@ class Settings_model extends CI_Model {
 		$this->db->update('products', $data); 
 	}
 	
-	// Delete Product
+	//Delete Product
 	public function delete_product($id){
 		$this->db->where('id', $id);
 		$this->db->delete('products', $data);
 		return true;
 	}
-	
-	//Get Categories
+
+
+    /**
+     * Fetch Data From categories table
+     * @param null $order_by
+     * @param string $sort
+     * @param null $limit
+     * @param int $offset
+     * @return mixed
+     */
 	public function get_categories($order_by = null, $sort = 'DESC', $limit = null, $offset = 0){
 		$this->db->select('*');
 		$this->db->from('categories');	
@@ -88,8 +98,16 @@ class Settings_model extends CI_Model {
 		$this->db->delete('categories', $data);
 		return true;
 	}
-	
-	// Get Admins
+
+
+    /**
+     * Fetch Data From admins table
+     * @param null $order_by
+     * @param string $sort
+     * @param null $limit
+     * @param int $offset
+     * @return mixed
+     */
 	public function get_admins($order_by = null, $sort = 'DESC', $limit = null, $offset = 0){
 		$this->db->select('*');
 		$this->db->from('admins');	
@@ -110,27 +128,35 @@ class Settings_model extends CI_Model {
 		return $query->row();
 	}
 	
-	//Insert
+	//Insert Admin
 	public function insert_admin($data) {
 		$this->db->insert('admins', $data);
 		return true;
 	}
 	
-		//Update
+    //Update Admin
 	public function update_admin($data, $id){
 		$this->db->where('id', $id);
 		$this->db->update('admins', $data);
 		return true;
 	}
 	
-	//Delete
+	//Delete Admin
 	public function delete_admin($id){
 		$this->db->where('id', $id);
 		$this->db->delete('admins', $data);
 		return true;
 	}
-	
-	// Get Home
+
+
+    /**
+     * Fetch Data From home_settings table
+     * @param null $order_by
+     * @param string $sort
+     * @param null $limit
+     * @param int $offset
+     * @return mixed
+     */
 	public function get_home($order_by = null, $sort = 'DESC', $limit = null, $offset = 0){
 		$this->db->select('*');
 		$this->db->from('home_settings');	
@@ -190,8 +216,16 @@ class Settings_model extends CI_Model {
 		$this->db->delete('home_settings', $data);
 		return true;
 	}
-	
-	//Get About
+
+
+    /**
+     * Fetch Data From about_settings table
+     * @param null $order_by
+     * @param string $sort
+     * @param null $limit
+     * @param int $offset
+     * @return mixed
+     */
 	public function get_about($order_by = null, $sort = 'DESC', $limit = null, $offset = 0){
 		$this->db->select('*');
 		$this->db->from('about_settings');	
@@ -225,7 +259,7 @@ class Settings_model extends CI_Model {
 		return true;
 	}
 	
-	// Publish About
+	//Publish About
 	public function publish_about($id){
 		$data = array(
                		'is_published' => 1
@@ -235,7 +269,7 @@ class Settings_model extends CI_Model {
 		$this->db->update('about_settings', $data); 
 	}
 	
-	// Unpublish About
+	//Unpublish About
 	public function unpublish_about($id){
 		$data = array(
                		'is_published' => 0
@@ -245,14 +279,22 @@ class Settings_model extends CI_Model {
 		$this->db->update('about_settings', $data); 
 	}
 	
-	// Delete About
+	//Delete About
 	public function delete_about($id){
 		$this->db->where('id', $id);
 		$this->db->delete('about_settings', $data);
 		return true;
 	}
-	
-	//Get Contact
+
+
+    /**
+     * Fetch Data From contact_settings Table
+     * @param null $order_by
+     * @param string $sort
+     * @param null $limit
+     * @param int $offset
+     * @return mixed
+     */
 	public function get_contact_data($order_by = null, $sort = 'DESC', $limit = null, $offset = 0){
 		$this->db->select('*');
 		$this->db->from('contact_settings');	
@@ -273,10 +315,30 @@ class Settings_model extends CI_Model {
 		return $query->row();
 	}
 	
-	//Update Home
+	//Update Contact
 	public function update_contact_data($data, $id) {
 		$this->db->where('id', $id);
 		$this->db->update('contact_settings', $data);
 		return true;
 	}
+
+    /**
+     * Verify Entered Data
+     * @return bool
+     */
+    function verify_email() {
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules('contactname', 'Name', 'trim|xss_clean');
+        $this->form_validation->set_rules('email', 'Email Address', 'trim|valid_email|xss_clean');
+        $this->form_validation->set_rules('subject', 'Subject', 'required');
+        $this->form_validation->set_rules('message', 'Message', 'trim|required|max_length[255]|xss_clean');
+
+        if (!$this->form_validation->run()) {
+            return FALSE ;
+        } else {
+            return TRUE;
+        }
+    }
+
 }

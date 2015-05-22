@@ -69,12 +69,12 @@
 						<h3><img src = "<?php echo base_url(); ?>assets/images/contact1.jpg"  style="width:325px" /></h3>
 						
 						<div class="form-group">
-						  <label for="name">How Shall We Call You?<span class="help-required">*</span></label>
+						  <label for="name">How Shall We Call You?<span class="help-required"></span></label>
 						  <input type="text" name="contactname" id="contactname" placeholder="Type your name here" value="<?php echo set_value('contactname'); ?>" class="form-control required" role="input" />
 						</div>
 						
 						<div class="form-group">
-							<label for="email">Share Your Email<span class="help-required">*</span></label>
+							<label for="email">Email For Your Answer?<span class="help-required"></span></label>
 							<input type="text" name="email" id="email" placeholder="Type your email address" value="<?php echo set_value('email'); ?>" class="form-control required email" role="input" />
 						</div>
 					  
