@@ -1,4 +1,9 @@
 <?php
+
+/**
+ * Configuration for email
+ */
+$config['mailtype'] = 'html';
 /*
 $config['protocol'] = 'smtp';
 $config['mailpath'] = '/webstore/shop/send_email';
