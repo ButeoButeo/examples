@@ -1,5 +1,9 @@
 <?php
 class User_model extends CI_Model {
+    /**
+     * User register
+     * @return mixed
+     */
 	public function register() {
 		$data = array(
 			'first_name' => $this->input->post('first_name'),
@@ -11,18 +15,22 @@ class User_model extends CI_Model {
 		$insert = $this->db->insert('users', $data);
 		return $insert;
 	}
-	
+
+    /**
+     * User Login
+     * @param $username
+     * @param $password
+     * @return mixed
+     */
 	public function login($username,$password){  
         //Validate
         $this->db->where('username', $username);
         $this->db->where('password', $password);
         
         $result = $this->db->get('users');
-		
+
         if ($result->num_rows() == 1) {
             return $result->row(0)->id;
-        } else {
-            return false;
         }
     }
 }
