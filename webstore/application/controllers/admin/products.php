@@ -35,7 +35,7 @@ class Products extends Admin_Controller {
 		$this->form_validation->set_rules('description','Description','trim|required|xss_clean');
 		$this->form_validation->set_rules('specifications','Specifications','trim|required|xss_clean');
 		$this->form_validation->set_rules('price','Price','trim|required|xss_clean');
-		$this->form_validation->set_rules('is_published','Publish','required');
+		$this->form_validation->set_rules('published','Publish','required');
 		$this->form_validation->set_rules('category','Category','required');
 		
 		$data['categories'] = $this->Settings_model->get_categories();
@@ -57,7 +57,7 @@ class Products extends Admin_Controller {
 					'category_id'		=> $this->input->post('category'),
 					'admin_id'			=> 1,
 					'price'				=> $this->input->post('price'),
-					'is_published'		=> $this->input->post('is_published')
+					'published'		=> $this->input->post('published')
 			);
 			
 			//Products Table Insert
@@ -83,7 +83,7 @@ class Products extends Admin_Controller {
 		$this->form_validation->set_rules('description','Description','trim|required|xss_clean');
 		$this->form_validation->set_rules('specifications','Specifications','trim|required|xss_clean');
 		$this->form_validation->set_rules('price','Price','trim|required|mxss_clean');
-		$this->form_validation->set_rules('is_published','Publish','required');
+		$this->form_validation->set_rules('published','Publish','required');
 		$this->form_validation->set_rules('category','Category','required');
 	
 		$data['categories'] = $this->Settings_model->get_categories();
@@ -108,7 +108,7 @@ class Products extends Admin_Controller {
 					'category_id'   	=> $this->input->post('category'),
 					'admin_id'			=> $this->input->post('admin'),
 					'price'				=> $this->input->post('price'),
-					'is_published'		=> $this->input->post('is_published')
+					'published'		=> $this->input->post('published')
 			);
 				
 			//Products Table Insert

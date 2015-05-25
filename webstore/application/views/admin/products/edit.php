@@ -57,11 +57,11 @@
 						</div>						
 						<div class="form-group">
 							<label>Published</label><br>		
-							<label for="is_published" class="radio-inline">
-                      			<input type="radio" name="is_published" id="is_published" value="1" <?php echo ($product->is_published== 1) ? 'checked' : ''; ?>> Yes
+							<label for="published" class="radio-inline">
+                      			<input type="radio" name="published" id="published" value="1" <?php echo ($product->published== 1) ? 'checked' : ''; ?>> Yes
                     		</label>
                     		<label class="radio-inline">
-                      			<input type="radio" name="is_published" id="is_published" value="0" <?php echo ($product->is_published == 0) ? 'checked' : ''; ?>> No
+                      			<input type="radio" name="published" id="published" value="0" <?php echo ($product->published == 0) ? 'checked' : ''; ?>> No
                     		</label>
 						</div>
 						</div>

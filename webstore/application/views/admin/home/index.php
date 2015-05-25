@@ -36,9 +36,9 @@
 						<td><?php echo $row->button_link; ?></td>
 						<td><img style="box-shadow: 0px 0px 0px 2px #000, 0px 0px 0px 5px #8A4F6B" src="<?php echo base_url(); ?>assets/images/slide/<?php echo $row->image; ?>" width="90" height="50"/></td>
 						<td><a href="<?php echo base_url(); ?>admin/home/edit/<?php echo $row->id; ?>" class="btn btn-primary">Edit</a>
-						<?php if($row->is_published == 1) : ?>
+						<?php if($row->published == 1) : ?>
 							<a href="<?php echo base_url(); ?>admin/home/unpublish/<?php echo $row->id; ?>" class="btn btn-warning">Unpublish</a>
-						<?php elseif($row->is_published == 0) : ?>
+						<?php elseif($row->published == 0) : ?>
 							<a href="<?php echo base_url(); ?>admin/home/publish/<?php echo $row->id; ?>" class="btn btn-success">Publish</a>
 						<?php endif; ?>
 						<a href="<?php echo base_url(); ?>admin/home/delete/<?php echo $row->id; ?>" class="btn btn-danger">Delete</a>

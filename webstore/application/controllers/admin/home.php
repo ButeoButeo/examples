@@ -24,7 +24,7 @@ class Home extends Admin_Controller {
 		$this->form_validation->set_rules('description','Description','trim|required|xss_clean');
 		$this->form_validation->set_rules('button_title','Button Title','trim|required|xss_clean');
 		$this->form_validation->set_rules('button_link','Button Link','trim|required|xss_clean');
-		$this->form_validation->set_rules('is_published','Publish','required');
+		$this->form_validation->set_rules('published','Publish','required');
 
 		if(!$this->form_validation->run() || !$this->upload->do_upload('userfile')){
 			//Views
@@ -39,7 +39,7 @@ class Home extends Admin_Controller {
 					'button_title'	=> $this->input->post('button_title'),
 					'button_link'	=> $this->input->post('button_link'),
 					'image'   		=> $file_data['file_name'],
-					'is_published'  => $this->input->post('is_published')
+					'published'  => $this->input->post('published')
 			);
 			
 			//Home Table Insert
@@ -65,7 +65,7 @@ class Home extends Admin_Controller {
 		$this->form_validation->set_rules('description','Description','trim|required|xss_clean');
 		$this->form_validation->set_rules('button_title','Button Title','trim|required|xss_clean');
 		$this->form_validation->set_rules('button_link','Button Link','trim|required|xss_clean');
-		$this->form_validation->set_rules('is_published','Publish','required');
+		$this->form_validation->set_rules('published','Publish','required');
 		
 		$data['home'] = $this->Settings_model->get_single_home($id);
 	
@@ -83,7 +83,7 @@ class Home extends Admin_Controller {
 					'button_title'	=> $this->input->post('button_title'),
 					'button_link'	=> $this->input->post('button_link'),
 					'image'   		=> $file_data['file_name'] ? $file_data['file_name'] : $row->image,
-					'is_published'  => $this->input->post('is_published')
+					'published'  => $this->input->post('published')
 			);
 				
 			//Home Data Insert

@@ -39,11 +39,11 @@
 				</div>	
 				<div class="form-group">
 					<label>Published</label><br>		
-					<label for="is_published" class="radio-inline">
-					<input type="radio" name="is_published" value="1" checked> yes
+					<label for="published" class="radio-inline">
+					<input type="radio" name="published" value="1" checked> yes
 					</label>
 					<label class="radio-inline">
-					<input type="radio" name="is_published" value="0"> No
+					<input type="radio" name="published" value="0"> No
 					</label>
 				</div>
 			</div>

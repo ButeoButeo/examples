@@ -64,7 +64,7 @@
 			<?php endif; ?>
 
 			<?php foreach ($products as $product) : ?>
-			<?php if ($product->is_published == 1) : ?>
+			<?php if ($product->published == 1) : ?>
 				<div class="col-md-4 clothes">
 				<div class="clothes-price">€<?php echo $product->price; ?></div>
 					<a href="<?php echo base_url(); ?>products/details/<?php echo $product->id; ?>">

@@ -1,7 +1,7 @@
 <div class="container marketing">
   <hr class="featurette-divider">
 <?php foreach($about as $row) : ?>
-<?php if ($row->is_published == 1) : ?>
+<?php if ($row->published == 1) : ?>
   <div class="row featurette">
   
 	<div class="col-md-7">

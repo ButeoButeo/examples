@@ -3,51 +3,66 @@ class Settings_model extends CI_Model {
 
     /**
      * Fetch Additional Data From products table
+     * @param $id
+     * @return mixed
      */
 	public function get_product($id) {
 		$this->db->where('id', $id);
 		$query = $this->db->get('products');
 		return $query->row();
 	}
-	
-	//Insert Product
+
+    /**
+     * Insert Product in products table
+     * @param $data
+     */
 	public function insert_product($data) {
 		$this->db->insert('products', $data);
-		return true;
 	}
-	
-	//Update Product
+
+    /**
+     * Update Product Details
+     * @param $data
+     * @param $id
+     */
 	public function update_product($data, $id) {
 		$this->db->where('id', $id);
 		$this->db->update('products', $data);
-		return true;
 	}
-	
-	//Publish Product
+
+    /**
+     * Publish Product
+     * @param $id
+     */
 	public function publish_product($id){
 		$data = array(
-               		'is_published' => 1
+               		'published' => 1
             	);
 
 		$this->db->where('id', $id);
 		$this->db->update('products', $data); 
 	}
-	
-	//Unpublish Product
+
+    /**
+     * Unpublish Product
+     * @param $id
+     */
 	public function unpublish_product($id){
 		$data = array(
-               		'is_published' => 0
+               		'published' => 0
             	);
 
 		$this->db->where('id', $id);
 		$this->db->update('products', $data); 
 	}
-	
-	//Delete Product
+
+    /**
+     * Delete Product
+     * @param $id
+     */
 	public function delete_product($id){
 		$this->db->where('id', $id);
 		$this->db->delete('products', $data);
-		return true;
 	}
 
 
@@ -82,21 +97,18 @@ class Settings_model extends CI_Model {
 	//Insert Category
 	public function insert_category($data) {
 		$this->db->insert('categories', $data);
-		return true;
 	}
 	
 	//Update Category
 	public function update_category($data, $id){
 		$this->db->where('id', $id);
 		$this->db->update('categories', $data);
-		return true;
 	}
 	
 	//Delete Category
 	public function delete_category($id){
 		$this->db->where('id', $id);
 		$this->db->delete('categories', $data);
-		return true;
 	}
 
 
@@ -131,21 +143,18 @@ class Settings_model extends CI_Model {
 	//Insert Admin
 	public function insert_admin($data) {
 		$this->db->insert('admins', $data);
-		return true;
 	}
 	
     //Update Admin
 	public function update_admin($data, $id){
 		$this->db->where('id', $id);
 		$this->db->update('admins', $data);
-		return true;
 	}
 	
 	//Delete Admin
 	public function delete_admin($id){
 		$this->db->where('id', $id);
 		$this->db->delete('admins', $data);
-		return true;
 	}
 
 
@@ -180,20 +189,18 @@ class Settings_model extends CI_Model {
 	//Insert Home
 	public function insert_home($data) {
 		$this->db->insert('home_settings', $data);
-		return true;
 	}
 	
 	//Update Home
 	public function update_home($data, $id) {
 		$this->db->where('id', $id);
 		$this->db->update('home_settings', $data);
-		return true;
 	}
 	
 	// Publish Home
 	public function publish_home($id){
 		$data = array(
-               		'is_published' => 1
+               		'published' => 1
             	);
 
 		$this->db->where('id', $id);
@@ -203,7 +210,7 @@ class Settings_model extends CI_Model {
 	// Unpublish Home
 	public function unpublish_home($id){
 		$data = array(
-               		'is_published' => 0
+               		'published' => 0
             	);
 
 		$this->db->where('id', $id);
@@ -214,7 +221,6 @@ class Settings_model extends CI_Model {
 	public function delete_home($id){
 		$this->db->where('id', $id);
 		$this->db->delete('home_settings', $data);
-		return true;
 	}
 
 
@@ -249,20 +255,18 @@ class Settings_model extends CI_Model {
 	//Insert About
 	public function insert_about($data) {
 		$this->db->insert('about_settings', $data);
-		return true;
 	}
 	
 	//Update About
 	public function update_about($data, $id) {
 		$this->db->where('id', $id);
 		$this->db->update('about_settings', $data);
-		return true;
 	}
 	
 	//Publish About
 	public function publish_about($id){
 		$data = array(
-               		'is_published' => 1
+               		'published' => 1
             	);
 
 		$this->db->where('id', $id);
@@ -272,7 +276,7 @@ class Settings_model extends CI_Model {
 	//Unpublish About
 	public function unpublish_about($id){
 		$data = array(
-               		'is_published' => 0
+               		'published' => 0
             	);
 
 		$this->db->where('id', $id);
@@ -283,7 +287,6 @@ class Settings_model extends CI_Model {
 	public function delete_about($id){
 		$this->db->where('id', $id);
 		$this->db->delete('about_settings', $data);
-		return true;
 	}
 
 
@@ -319,7 +322,6 @@ class Settings_model extends CI_Model {
 	public function update_contact_data($data, $id) {
 		$this->db->where('id', $id);
 		$this->db->update('contact_settings', $data);
-		return true;
 	}
 
     /**
@@ -335,9 +337,9 @@ class Settings_model extends CI_Model {
         $this->form_validation->set_rules('message', 'Message', 'trim|required|max_length[255]|xss_clean');
 
         if (!$this->form_validation->run()) {
-            return FALSE ;
+            return false ;
         } else {
-            return TRUE;
+            return true;
         }
     }
 

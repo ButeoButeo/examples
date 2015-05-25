@@ -26,7 +26,7 @@ class About extends Admin_Controller {
 		//Validation Rules
 		$this->form_validation->set_rules('title','Title','trim|required|min_length[4]|xss_clean');
 		$this->form_validation->set_rules('description','Description','trim|required|xss_clean');
-		$this->form_validation->set_rules('is_published','Publish','required');
+		$this->form_validation->set_rules('published','Publish','required');
 
 		if(!$this->form_validation->run() || !$this->upload->do_upload('userfile')){
 			//Views
@@ -39,7 +39,7 @@ class About extends Admin_Controller {
 					'title'         => $this->input->post('title'),
 					'description'	=> $this->input->post('description'),
 					'image'   		=> $file_data['file_name'],
-					'is_published'  => $this->input->post('is_published')
+					'published'  => $this->input->post('published')
 			);
 			
 			//About Table Insert
@@ -63,7 +63,7 @@ class About extends Admin_Controller {
 		//Validation Rules
 		$this->form_validation->set_rules('title','Title','trim|required|min_length[4]|xss_clean');
 		$this->form_validation->set_rules('description','Description','trim|required|xss_clean');
-		$this->form_validation->set_rules('is_published','Publish','required');
+		$this->form_validation->set_rules('published','Publish','required');
 		
 		$data['about'] = $this->Settings_model->get_single_about($id);
 	
@@ -79,7 +79,7 @@ class About extends Admin_Controller {
 					'title'         => $this->input->post('title'),
 					'description'	=> $this->input->post('description'),
 					'image'   		=> $file_data['file_name'] ? $file_data['file_name'] : $row->image,
-					'is_published'  => $this->input->post('is_published')
+					'published'  => $this->input->post('published')
 			);
 				
 			//About Table Insert

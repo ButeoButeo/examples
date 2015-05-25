@@ -13,7 +13,7 @@
 	<!-- Slide Data -->
     <div class="carousel-inner" role="listbox">
 	   <?php foreach($home as $row) : ?>
-	    <?php if ($row->is_published == 1) : ?>
+	    <?php if ($row->published == 1) : ?>
 	   <?php if ($row->id == 1) : ?>
        <div class="item active">
 	   <?php else : ?>

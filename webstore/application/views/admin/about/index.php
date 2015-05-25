@@ -32,9 +32,9 @@
 						<td><?php echo $row->description; ?></td>
 						<td><img style="box-shadow: 0px 0px 0px 2px #000, 0px 0px 0px 5px #8A4F6B" src="<?php echo base_url(); ?>assets/images/about/<?php echo $row->image; ?>" width="80" height="80"/></td>
 						<td><a href="<?php echo base_url(); ?>admin/about/edit/<?php echo $row->id; ?>" class="btn btn-primary">Edit</a>
-						<?php if($row->is_published == 1) : ?>
+						<?php if($row->published == 1) : ?>
 							<a href="<?php echo base_url(); ?>admin/about/unpublish/<?php echo $row->id; ?>" class="btn btn-warning">Unpublish</a>
-						<?php elseif($row->is_published == 0) : ?>
+						<?php elseif($row->published == 0) : ?>
 							<a href="<?php echo base_url(); ?>admin/about/publish/<?php echo $row->id; ?>" class="btn btn-success">Publish</a>
 						<?php endif; ?>
 						<a href="<?php echo base_url(); ?>admin/about/delete/<?php echo $row->id; ?>" class="btn btn-danger">Delete</a>

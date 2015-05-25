@@ -37,9 +37,9 @@
 						<td><img style="box-shadow: 0px 0px 0px 2px #000, 0px 0px 0px 5px #8A4F6B" src="<?php echo base_url(); ?>assets/images/products/<?php echo $product->image; ?>" width="72" height="90"/></td>
 						<td><strong><?php echo $product->price; ?></strong></td>
 				  <td><a href="<?php echo base_url(); ?>admin/products/edit/<?php echo $product->id; ?>" class="btn btn-primary">Edit</a> 
-						<?php if($product->is_published == 1) : ?>
+						<?php if($product->published == 1) : ?>
 							<a href="<?php echo base_url(); ?>admin/products/unpublish/<?php echo $product->id; ?>" class="btn btn-warning">Unpublish</a> 
-						<?php elseif($product->is_published == 0) : ?>
+						<?php elseif($product->published == 0) : ?>
 							<a href="<?php echo base_url(); ?>admin/products/publish/<?php echo $product->id; ?>" class="btn btn-success">Publish</a> 
 						<?php endif; ?>
 						<a href="<?php echo base_url(); ?>admin/products/delete/<?php echo $product->id; ?>" class="btn btn-danger">Delete</a></td>
