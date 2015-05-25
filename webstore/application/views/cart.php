@@ -50,7 +50,7 @@
 						<td style="text-align:right"><?php echo $this->cart->format_number($items['price']); ?></td>
 						<td style="text-align:right">
 						<?php // Cancel Image
-						$path = "<img src='http://localhost/webstore/assets/images/remove.jpg' width='25px' height='20px'>";
+						$path = "<img src='assets/images/remove.jpg' width='25px' height='20px'>";
 						echo anchor('cart/remove/' . $items['rowid'], $path); ?>
 						</td>
 						<?php endforeach; ?>
