@@ -1,5 +1,8 @@
 <?php
 class Shop extends CI_Controller {
+    /**
+     * Get Data for Home Page and Load View
+     */
 	public function index() {
 		//Get Home
 		$data['home'] = $this->Settings_model->get_home('id', 'ASC', 10);
@@ -7,7 +10,10 @@ class Shop extends CI_Controller {
 		$data['main_content'] = 'home';
 		$this->load->view('layouts/main', $data);
 	}
-	
+
+    /** Get Data for About Page and Load View
+     *
+     */
 	public function about() {
 		//Get About
 		$data['about'] = $this->Settings_model->get_about('id', 'DESC', 10);
@@ -16,10 +22,13 @@ class Shop extends CI_Controller {
 		$this->load->view('layouts/main', $data);
 	}
 
+    /**
+     * Get Contact Data, Send Email and Load View
+     */
 	public function contact() {
 		//Get State and City
-		$state = $this->db->where('id','3')->get('contact_settings')->row();
-		$city = $this->db->where('id','2')->get('contact_settings')->row();
+		$state = $this->db->where('key','State')->get('contact_settings')->row();
+		$city = $this->db->where('key','City')->get('contact_settings')->row();
 		
 		//GoogleMap
 		$this->load->library('googlemaps');

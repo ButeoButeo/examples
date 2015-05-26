@@ -1,6 +1,28 @@
 <?php
 class User_model extends CI_Model {
     /**
+     * Verify User Data
+     * @return bool
+     */
+    function verify_user() {
+        $this->load->library('form_validation');
+
+        //Validation Rules
+        $this->form_validation->set_rules('first_name','First Name','trim|required');
+        $this->form_validation->set_rules('last_name','Last Name','trim|required');
+        $this->form_validation->set_rules('email','Email','trim|required|valid_email');
+        $this->form_validation->set_rules('username','Username','trim|required|min_length[4]|max_length[16]');
+        $this->form_validation->set_rules('password','Password','trim|required|min_length[4]|max_length[50]');
+        $this->form_validation->set_rules('password2','Confirm Password','trim|required|matches[password]');
+
+        if (!$this->form_validation->run()) {
+            return false ;
+        } else {
+            return true;
+        }
+    }
+
+    /**
      * User register
      * @return mixed
      */

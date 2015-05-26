@@ -1,27 +1,27 @@
 <?php
 class Users extends CI_controller {
+    // Redirect Value
+    const products = 'products';
+
+    /**
+     * Check the Validity of Entered Data, Load View or Redirect
+     */
 	public function register() {
-		//Validation Rules
-		$this->form_validation->set_rules('first_name','First Name','trim|required');
-		$this->form_validation->set_rules('last_name','Last Name','trim|required');
-        $this->form_validation->set_rules('email','Email','trim|required|valid_email');
-        $this->form_validation->set_rules('username','Username','trim|required|min_length[4]|max_length[16]');
-        $this->form_validation->set_rules('password','Password','trim|required|min_length[4]|max_length[50]');
-        $this->form_validation->set_rules('password2','Confirm Password','trim|required|matches[password]');
-		
-		if ($this->form_validation->run() == FALSE) {
+        if (!$this->User_model->verify_user()) {
 			//Show View
 			$data['main_content'] = 'register';
 			$this->load->view('layouts/main', $data);
 		} else {
 			 if($this->User_model->register()){     
 				$this->session->set_flashdata('registered', 'You are now registered and can login');
-				redirect('products');
+				redirect(products);
             }
 		}
 	}
-	
-	//Login
+
+    /**
+     * Validate LogIn Data, Set Session and/or Display Message
+     */
 	public function login() {
 		$this->form_validation->set_rules('username','Username','trim|required|min_length[4]|max_length[16]');
         $this->form_validation->set_rules('password','Password','trim|required|min_length[4]|max_length[50]');
@@ -44,15 +44,17 @@ class Users extends CI_controller {
                    
 			//Set message
 			$this->session->set_flashdata('pass_login', 'You are logged in');
-			redirect('products');
+			redirect(products);
         } else {
             //Set error
-             $this->session->set_flashdata('fail_login', 'Sorry, the login info that you entered is invalid');
-			redirect('products');
+            $this->session->set_flashdata('fail_login', 'Sorry, the login info that you entered is invalid');
+			redirect(products);
         }
 	}
-	
-	//Logout
+
+    /**
+     * LogOut - Unset Session user data and Redirect
+     */
 	public function logout() {
 		//Unset user data
 		$this->session->unset_userdata('logged_id');
@@ -60,6 +62,6 @@ class Users extends CI_controller {
 		$this->session->unset_userdata('username');
 		$this->session->sess_destroy();
 		
-		redirect('products');
+		redirect(products);
 	}
 }
