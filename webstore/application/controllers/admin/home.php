@@ -3,7 +3,11 @@ class Home extends Admin_Controller {
 	public function __construct() {
 		parent:: __construct();
     }
-	
+
+    /**
+     * Home Main Index
+     * Get Home Data and Load View
+     */
 	public function index() {
 		//Get Home
 		$data['home'] = $this->Settings_model->get_home('id', 'DESC', 10);
@@ -12,26 +16,24 @@ class Home extends Admin_Controller {
 		$data['main_content'] = 'admin/home/index';
 		$this->load->view('admin/layouts/main', $data);
 	}
-	
-	//Add Home
+
+    /**
+     * Add Home Page Details
+     * Load Upload Configuration and Library
+     * Verify Entered Data
+     * Insert Data into DB, Display Message and Redirect
+     */
 	public function add(){
         //Load upload configuration
         $upload = $this->config->item('home');
         $this->load->library('upload', $upload);
-		
-		//Validation Rules
-		$this->form_validation->set_rules('title','Title','trim|required|min_length[4]|xss_clean');
-		$this->form_validation->set_rules('description','Description','trim|required|xss_clean');
-		$this->form_validation->set_rules('button_title','Button Title','trim|required|xss_clean');
-		$this->form_validation->set_rules('button_link','Button Link','trim|required|xss_clean');
-		$this->form_validation->set_rules('published','Publish','required');
 
-		if(!$this->form_validation->run() || !$this->upload->do_upload('userfile')){
+		if(!$this->Settings_model->verify_home() || !$this->upload->do_upload('userfile')){
 			//Views
 			$data['main_content'] = 'admin/home/add';
 			$this->load->view('admin/layouts/main', $data);
 		} else {
-			//Create home Data Array
+			//Create Home Data Array
 			$file_data = $this->upload->data();
 			$data = array(
 					'title'         => $this->input->post('title'),
@@ -39,7 +41,7 @@ class Home extends Admin_Controller {
 					'button_title'	=> $this->input->post('button_title'),
 					'button_link'	=> $this->input->post('button_link'),
 					'image'   		=> $file_data['file_name'],
-					'published'  => $this->input->post('published')
+					'published'     => $this->input->post('published')
 			);
 			
 			//Home Table Insert
@@ -48,28 +50,27 @@ class Home extends Admin_Controller {
 			//Create Message
 			$this->session->set_flashdata('home_saved', 'Your home page details has been saved');
 			
-			//Redirect to pages
+			//Redirect
             redirect(Admin_Controller::home);
 		}
 	}
-	
-	//Edit Home
+
+    /**
+     * Edit Home Page Details
+     * Load Upload Configuration and Library
+     * Verify Entered Data
+     * Insert Data into DB, Display Message and Redirect
+     * @param $id
+     */
 	public function edit($id){
         //Load upload configuration and do upload
         $upload = $this->config->item('home');
         $this->load->library('upload', $upload);
         $this->upload->do_upload('userfile');
 		
-		//Validation Rules
-		$this->form_validation->set_rules('title','Title','trim|required|min_length[4]|xss_clean');
-		$this->form_validation->set_rules('description','Description','trim|required|xss_clean');
-		$this->form_validation->set_rules('button_title','Button Title','trim|required|xss_clean');
-		$this->form_validation->set_rules('button_link','Button Link','trim|required|xss_clean');
-		$this->form_validation->set_rules('published','Publish','required');
-		
 		$data['home'] = $this->Settings_model->get_single_home($id);
 	
-		if($this->form_validation->run() == FALSE){
+		if(!$this->Settings_model->verify_home()){
 			//Views
 			$data['main_content'] = 'admin/home/edit';
 			$this->load->view('admin/layouts/main', $data);
@@ -83,7 +84,7 @@ class Home extends Admin_Controller {
 					'button_title'	=> $this->input->post('button_title'),
 					'button_link'	=> $this->input->post('button_link'),
 					'image'   		=> $file_data['file_name'] ? $file_data['file_name'] : $row->image,
-					'published'  => $this->input->post('published')
+					'published'     => $this->input->post('published')
 			);
 				
 			//Home Data Insert
@@ -92,17 +93,17 @@ class Home extends Admin_Controller {
 			//Create Message
 			$this->session->set_flashdata('home_saved', 'Your home page details has been saved');
 				
-			//Redirect to pages
+			//Redirect
             redirect(Admin_Controller::home);
 		}
 	}
 
     /**
-     * Publish home page data in database (set value to 1)
+     * Publish Home Page Data
      * Display message and redirect
      */
 	public function publish($id){
-		//Publish Menu Items in array
+		//Publish home page details - set value to 1
 		$this->Settings_model->publish_home($id);
 		 
 		//Create Message
@@ -114,11 +115,11 @@ class Home extends Admin_Controller {
 
 
     /**
-     * Unpublish home page data in database (set value to 0)
-     * Display message and redirect
+     * Unpublish Home Page Data
+     * Display Message and Redirect
      */
 	public function unpublish($id){
-		//Publish Menu Items in array
+		//Unpublish home page details - set value to 0
 		$this->Settings_model->unpublish_home($id);
 		 
 		//Create Message
@@ -130,8 +131,8 @@ class Home extends Admin_Controller {
 
     /**
      * Delete slide image from folder
-     * Delete home page data from database
-     * Display message and redirect
+     * Delete Home Page data from DB
+     * Display Message and Redirect
      */
 	public function delete($id){
 		//Delete Image from Folder
@@ -145,7 +146,7 @@ class Home extends Admin_Controller {
 		//Create Message
 		$this->session->set_flashdata('home_deleted', 'Your home settings has been deleted');
 	
-		//Redirect to pages
+		//Redirect
         redirect(Admin_Controller::home);
 	}
 }

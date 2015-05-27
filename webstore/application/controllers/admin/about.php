@@ -6,7 +6,7 @@ class About extends Admin_Controller {
 
     /**
      * About Main Index
-     * Get About data and Load View
+     * Get About Data and Load View
      */
 	public function index() {
 		//Get About
@@ -16,19 +16,19 @@ class About extends Admin_Controller {
 		$data['main_content'] = 'admin/about/index';
 		$this->load->view('admin/layouts/main', $data);
 	}
-	
-	//Add About
-	public function add(){
+
+    /**
+     * Add About Page Details
+     * Load Upload Configuration and Library
+     * Verify Entered Data
+     * Insert Data into DB, Display Message and Redirect
+     */
+    public function add(){
         //Load upload configuration
         $upload = $this->config->item('about');
         $this->load->library('upload', $upload);
-		
-		//Validation Rules
-		$this->form_validation->set_rules('title','Title','trim|required|min_length[4]|xss_clean');
-		$this->form_validation->set_rules('description','Description','trim|required|xss_clean');
-		$this->form_validation->set_rules('published','Publish','required');
 
-		if(!$this->form_validation->run() || !$this->upload->do_upload('userfile')){
+		if(!$this->Settings_model->verify_about() || !$this->upload->do_upload('userfile')){
 			//Views
 			$data['main_content'] = 'admin/about/add';
 			$this->load->view('admin/layouts/main', $data);
@@ -39,7 +39,7 @@ class About extends Admin_Controller {
 					'title'         => $this->input->post('title'),
 					'description'	=> $this->input->post('description'),
 					'image'   		=> $file_data['file_name'],
-					'published'  => $this->input->post('published')
+					'published'     => $this->input->post('published')
 			);
 			
 			//About Table Insert
@@ -52,22 +52,23 @@ class About extends Admin_Controller {
 			redirect(Admin_Controller::about);
 		}
 	}
-	
-	//Edit About
-	public function edit($id){
+
+    /**
+     * Edit About Page Details
+     * Load Upload Configuration and Library
+     * Verify Entered Data
+     * Insert Data into DB, Display Message and Redirect
+     * @param $id
+     */
+    public function edit($id){
         //Load upload configuration and do upload
         $upload = $this->config->item('about');
         $this->load->library('upload', $upload);
 		$this->upload->do_upload('userfile');
 		
-		//Validation Rules
-		$this->form_validation->set_rules('title','Title','trim|required|min_length[4]|xss_clean');
-		$this->form_validation->set_rules('description','Description','trim|required|xss_clean');
-		$this->form_validation->set_rules('published','Publish','required');
-		
 		$data['about'] = $this->Settings_model->get_single_about($id);
 	
-		if(!$this->form_validation->run()){
+		if(!$this->Settings_model->verify_about()){
 			//Views
 			$data['main_content'] = 'admin/about/edit';
 			$this->load->view('admin/layouts/main', $data);
@@ -79,7 +80,7 @@ class About extends Admin_Controller {
 					'title'         => $this->input->post('title'),
 					'description'	=> $this->input->post('description'),
 					'image'   		=> $file_data['file_name'] ? $file_data['file_name'] : $row->image,
-					'published'  => $this->input->post('published')
+					'published'     => $this->input->post('published')
 			);
 				
 			//About Table Insert
@@ -94,8 +95,8 @@ class About extends Admin_Controller {
 	}
 
     /**
-     * Publish about details
-     * Display message and redirect
+     * Publish About Details
+     * Display Message and Redirect
      */
 	public function publish($id){
 		//Publish about details - set value to 1
@@ -110,8 +111,8 @@ class About extends Admin_Controller {
 
 
     /**
-     * Unpublish about details
-     * Display message and redirect
+     * Unpublish About Details
+     * Display Message and Redirect
      */
 	public function unpublish($id){
 		//Unpublish about details - set value to 0
@@ -126,7 +127,7 @@ class About extends Admin_Controller {
 
     /**
      * Delete Image from Folder
-     * Delete from database
+     * Delete Data from DB
      * Display message and redirect
      */
 	public function delete($id){

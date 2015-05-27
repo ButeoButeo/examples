@@ -223,6 +223,27 @@ class Settings_model extends CI_Model {
 		$this->db->delete('home_settings', $data);
 	}
 
+    /**
+     * Verify Entered Home Page Data
+     * @return bool
+     */
+    function verify_home() {
+        $this->load->library('form_validation');
+
+        //Validation Rules
+        $this->form_validation->set_rules('title','Title','trim|required|min_length[4]|xss_clean');
+        $this->form_validation->set_rules('description','Description','trim|required|xss_clean');
+        $this->form_validation->set_rules('button_title','Button Title','trim|required|xss_clean');
+        $this->form_validation->set_rules('button_link','Button Link','trim|required|xss_clean');
+        $this->form_validation->set_rules('published','Publish','required');
+
+        if (!$this->form_validation->run()) {
+            return false ;
+        } else {
+            return true;
+        }
+    }
+
 
     /**
      * Fetch Data From about_settings table
@@ -288,6 +309,25 @@ class Settings_model extends CI_Model {
 		$this->db->where('id', $id);
 		$this->db->delete('about_settings', $data);
 	}
+
+    /**
+     * Verify Entered About Page Data
+     * @return bool
+     */
+    function verify_about() {
+        $this->load->library('form_validation');
+
+        //Validation Rules
+        $this->form_validation->set_rules('title','Title','trim|required|min_length[4]|xss_clean');
+        $this->form_validation->set_rules('description','Description','trim|required|xss_clean');
+        $this->form_validation->set_rules('published','Publish','required');
+
+        if (!$this->form_validation->run()) {
+            return false ;
+        } else {
+            return true;
+        }
+    }
 
 
     /**
