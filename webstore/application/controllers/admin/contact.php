@@ -16,31 +16,37 @@ class Contact extends Admin_Controller {
 		$data['main_content'] = 'admin/contact/index';
 		$this->load->view('admin/layouts/main', $data);
 	}
-	
-	//Edit Contact
+
+    /**
+     * Edit Contact Page Details
+     * Load Upload Configuration and Library
+     * Verify Entered Data
+     * Insert Data into DB, Display Message and Redirect
+     * @param $id
+     */
 	public function edit($id){
-			//Upload Image
-			$config = array(
-				'upload_path' => 'assets/images',
-				'allowed_types' => 'gif|jpg|jpeg|png'
-			);
-			$this->load->library('upload', $config);
-			$this->upload->do_upload('userfile');
-		
+        //Load upload configuration and do upload
+        $upload = $this->config->item('contact');
+        $this->load->library('upload', $upload);
+        $this->upload->do_upload('userfile');
+
 		//Validation Rules
-		$this->form_validation->set_rules('value','Value','trim|required|min_length[4]|xss_clean');
+		$this->form_validation->set_rules('value','Value','trim|min_length[4]|xss_clean');
 		
 		$data['contact'] = $this->Settings_model->get_single_contact_data($id);
-	
+
 		if(!$this->form_validation->run()) {
 			//Views
 			$data['main_content'] = 'admin/contact/edit';
 			$this->load->view('admin/layouts/main', $data);
 		} else {
-			if ($id == 7) {
-				$w = $this->upload->data();
+            //Create Contact Data Array if Image
+			if ($id == '7') {
+                $file_data = $this->upload->data();
+                $row = $this->db->where('id','7')->get('contact_settings')->row();
+
 				$data = array(
-						'value'         =>  $w['file_name']
+						'value'         =>  $file_data['file_name'] ? $file_data['file_name'] : $row->value
 				);
 			} else {
 				//Create Contact Data Array
@@ -48,7 +54,7 @@ class Contact extends Admin_Controller {
 						'value'         => $this->input->post('value')
 				);
 			}
-				
+
 			// Contact Table Insert
 			$this->Settings_model->update_contact_data($data, $id);
 				
@@ -57,6 +63,6 @@ class Contact extends Admin_Controller {
 				
 			// Redirect to contact page
 			redirect('admin/contact/index');
-	}
-}
+	    }
+    }
 }

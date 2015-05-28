@@ -32,21 +32,21 @@
 					<hr>
 					<h4>Location:</h4></br>
 					<?php foreach($contact as $row) : ?>
-						<?php if ($row->key == 'Address' || $row->key == 'City' || $row->key == 'State') : ?>
+						<?php if (($row->key == 'Address' || $row->key == 'City' || $row->key == 'State') &&  $row->value !== '') : ?>
 						<p><?php echo $row->key; ?>: <?php echo $row->value; ?></p>
 						<?php endif; ?>
 						<?php endforeach; ?>
 					<hr>
 					<h4>Contact Details:</h4></br>
 						<?php foreach($contact as $row) : ?>
-                            <?php if ($row->key == 'Email' || $row->key == 'Phone' || $row->key == 'Skype') : ?>
+                            <?php if (($row->key == 'Email' || $row->key == 'Phone' || $row->key == 'Skype') &&  $row->value !== '') : ?>
                                 <p><?php echo $row->key; ?>: <?php echo $row->value; ?></p>
 						<?php endif; ?>
 						<?php endforeach; ?>
 					<hr>
 					<h4>On The Web:</h4></br>
 					<?php foreach($contact as $row) : ?>
-                        <?php if ($row->key == 'Facebook' || $row->key == 'LinkedIn' || $row->key == 'Twiter') : ?>
+                        <?php if (($row->key == 'Facebook' || $row->key == 'LinkedIn' || $row->key == 'Twiter') &&  $row->value !== ''): ?>
 						<p><a style="color:#DFCBBC" href="<?php echo $row->value; ?>"><?php echo $row->key; ?></a></p>
 					<?php endif; ?>
 					<?php endforeach; ?>

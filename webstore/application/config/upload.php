@@ -12,6 +12,12 @@
     $config['about']['allowed_types'] = 'gif|jpg|jpeg|png';
 
 /**
+ * Configuration for upload image to contact page
+ */
+    $config['contact']['upload_path'] = 'assets/images';
+    $config['contact']['allowed_types'] = 'gif|jpg|jpeg|png';
+
+/**
  * Configuration for upload images to products page
  */
     $config['products']['upload_path'] = 'assets/images/products';
