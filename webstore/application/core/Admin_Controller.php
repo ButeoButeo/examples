@@ -8,7 +8,7 @@ class Admin_Controller extends CI_Controller {
     const categories = 'admin/categories';
     const home = 'admin/home';
     const about = 'admin/about';
-    const admins = 'admin/admins';
+    const ADMINS = 'admin/admins';
 
     /**
      * Access Control

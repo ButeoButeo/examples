@@ -23,14 +23,7 @@ class Admins extends Admin_Controller {
      * Display message and redirect
      */
 	public function add(){
-		//Validation Rules
-		$this->form_validation->set_rules('first_name','First Name','trim|required|xss_clean');
-		$this->form_validation->set_rules('last_name','Last Name','trim|required|xss_clean');
-		$this->form_validation->set_rules('email','Email','trim|required|valid_email|xss_clean');
-		$this->form_validation->set_rules('username','Username','trim|required|min_length[3]|xss_clean');
-		$this->form_validation->set_rules('password', 'Password', 'required|matches[confirm_password]');
-	
-		if(!$this->form_validation->run()) {
+		if(!$this->Settings_model->verify_admin()) {
 			//Views
 			$data['main_content'] = 'admin/admins/add';
 			$this->load->view('admin/layouts/main', $data);
@@ -51,26 +44,20 @@ class Admins extends Admin_Controller {
 			$this->session->set_flashdata('admin_saved', 'Admin has been added');
 				
 			//Redirect to admins page
-			redirect(Admin_Controller::admins);
+			redirect(Admin_Controller::ADMINS);
 		}
 	}
 
-
     /**
+     * Get Single Admin Data
      * Check the validity
      * Edit admin data in database
      * Display message and redirect
      */
 	public function edit($id){
-		//Validation Rules
-		$this->form_validation->set_rules('first_name','First Name','trim|required|xss_clean');
-		$this->form_validation->set_rules('last_name','Last Name','trim|required|xss_clean');
-		$this->form_validation->set_rules('email','Email','trim|required|valid_email|xss_clean');
-		$this->form_validation->set_rules('username','Username','trim|required|min_length[3]|xss_clean');
-	
 		$data['admin'] = $this->Settings_model->get_admin($id);
-	
-		if(!$this->form_validation->run()){
+
+        if(!$this->Settings_model->verify_admin()) {
 			//Views
 			$data['main_content'] = 'admin/admins/edit';
 			$this->load->view('admin/layouts/main', $data);
@@ -90,7 +77,7 @@ class Admins extends Admin_Controller {
 			$this->session->set_flashdata('admin_saved', 'Admin has been saved');
 
             //Redirect to admins page
-            redirect(Admin_Controller::admins);
+            redirect(Admin_Controller::ADMINS);
 		}
 	}
 
@@ -105,6 +92,6 @@ class Admins extends Admin_Controller {
 		$this->session->set_flashdata('admin_deleted', 'Admin has been deleted');
 
         //Redirect to admins page
-        redirect(Admin_Controller::admins);
+        redirect(Admin_Controller::ADMINS);
 	}
 }

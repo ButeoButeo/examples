@@ -7,9 +7,7 @@ class Authenticate extends CI_Controller {
      *
      */
 	public function login() {
-		$this->form_validation->set_rules('username','Username','trim|required|min_length[3]|xss_clean');
-		$this->form_validation->set_rules('password','Password','trim|required|min_length[3]|xss_clean');
-		if (!$this->form_validation->run()) {
+		if (!$this->Authenticate_model->verify_login()) {
 			//Load View
 			$this->load->view('admin/layouts/login');
 		} else {

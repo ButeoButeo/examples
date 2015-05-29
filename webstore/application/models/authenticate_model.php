@@ -12,8 +12,22 @@ class Authenticate_model extends CI_Model {
 
         if ($result->num_rows() == 1) {
             return $result->row();
-        } else {
-            return false;
         }
 	}
+
+    /**
+     * Verify Entered Admin Data
+     * @return bool
+     */
+    function verify_login() {
+        //Validation Rules
+        $this->form_validation->set_rules('username','Username','trim|required|min_length[3]|xss_clean');
+        $this->form_validation->set_rules('password','Password','trim|required|min_length[3]|xss_clean');
+
+        if (!$this->form_validation->run()) {
+            return false ;
+        } else {
+            return true;
+        }
+    }
 }

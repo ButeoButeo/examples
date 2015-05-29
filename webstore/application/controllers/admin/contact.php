@@ -6,7 +6,7 @@ class Contact extends Admin_Controller {
 
     /**
      * Contact Main Index
-     * Fetch contact details and load view
+     * Fetch contact details and Load View
      */
 	public function index() {
 		//Get Contact
@@ -25,17 +25,14 @@ class Contact extends Admin_Controller {
      * @param $id
      */
 	public function edit($id){
+        $data['contact'] = $this->Settings_model->get_single_contact_data($id);
+
         //Load upload configuration and do upload
         $upload = $this->config->item('contact');
         $this->load->library('upload', $upload);
         $this->upload->do_upload('userfile');
 
-		//Validation Rules
-		$this->form_validation->set_rules('value','Value','trim|min_length[4]|xss_clean');
-		
-		$data['contact'] = $this->Settings_model->get_single_contact_data($id);
-
-		if(!$this->form_validation->run()) {
+		if(!$this->Settings_model->verify_contact()) {
 			//Views
 			$data['main_content'] = 'admin/contact/edit';
 			$this->load->view('admin/layouts/main', $data);

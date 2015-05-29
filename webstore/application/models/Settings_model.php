@@ -1,5 +1,10 @@
 <?php
 class Settings_model extends CI_Model {
+    public function __construct() {
+        parent:: __construct();
+
+        $this->load->library('form_validation');
+    }
 
     /**
      * Fetch Additional Data From products table
@@ -157,6 +162,25 @@ class Settings_model extends CI_Model {
 		$this->db->delete('admins', $data);
 	}
 
+    /**
+     * Verify Entered Admin Data
+     * @return bool
+     */
+    function verify_admin() {
+        //Validation Rules
+        $this->form_validation->set_rules('first_name','First Name','trim|required|xss_clean');
+        $this->form_validation->set_rules('last_name','Last Name','trim|required|xss_clean');
+        $this->form_validation->set_rules('email','Email','trim|required|valid_email|xss_clean');
+        $this->form_validation->set_rules('username','Username','trim|required|min_length[3]|xss_clean');
+        $this->form_validation->set_rules('password', 'Password', 'matches[confirm_password]');
+
+        if (!$this->form_validation->run()) {
+            return false ;
+        } else {
+            return true;
+        }
+    }
+
 
     /**
      * Fetch Data From home_settings table
@@ -228,8 +252,6 @@ class Settings_model extends CI_Model {
      * @return bool
      */
     function verify_home() {
-        $this->load->library('form_validation');
-
         //Validation Rules
         $this->form_validation->set_rules('title','Title','trim|required|min_length[4]|xss_clean');
         $this->form_validation->set_rules('description','Description','trim|required|xss_clean');
@@ -315,8 +337,6 @@ class Settings_model extends CI_Model {
      * @return bool
      */
     function verify_about() {
-        $this->load->library('form_validation');
-
         //Validation Rules
         $this->form_validation->set_rules('title','Title','trim|required|min_length[4]|xss_clean');
         $this->form_validation->set_rules('description','Description','trim|required|xss_clean');
@@ -365,16 +385,29 @@ class Settings_model extends CI_Model {
 	}
 
     /**
-     * Verify Entered Data
-     * @return bool
-     */
+ * Verify Entered Email Data
+ * @return bool
+ */
     function verify_email() {
-        $this->load->library('form_validation');
-
         $this->form_validation->set_rules('contactname', 'Name', 'trim|xss_clean');
         $this->form_validation->set_rules('email', 'Email Address', 'trim|valid_email|xss_clean');
         $this->form_validation->set_rules('subject', 'Subject', 'required');
         $this->form_validation->set_rules('message', 'Message', 'trim|required|max_length[255]|xss_clean');
+
+        if (!$this->form_validation->run()) {
+            return false ;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * Verify Contact Data
+     * @return bool
+     */
+    function verify_contact() {
+        //Validation Rules
+        $this->form_validation->set_rules('value','Value','trim|min_length[4]|xss_clean');
 
         if (!$this->form_validation->run()) {
             return false ;
