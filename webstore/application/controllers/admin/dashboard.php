@@ -3,7 +3,12 @@ class Dashboard extends Admin_Controller {
 	public function __construct() {
 		parent:: __construct();
     }
-	
+
+    /**
+     * Dashboard - Admin Area Main Index
+     * Get Products, Categories, Admins, Contact, Home and About Page Data
+     * Load View
+     */
 	public function index() {
 		//Get Products
 		$data['products'] = $this->Product_model->get_products();

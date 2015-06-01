@@ -49,7 +49,7 @@ class About extends Admin_Controller {
 			$this->session->set_flashdata('about_saved', 'Your about page details has been saved');
 			
 			//Redirect to about page
-			redirect(Admin_Controller::about);
+			redirect(Admin_Controller::ABOUT);
 		}
 	}
 
@@ -90,7 +90,7 @@ class About extends Admin_Controller {
 			$this->session->set_flashdata('about_saved', 'Your about details has been saved');
 
             //Redirect to about page
-            redirect(Admin_Controller::about);
+            redirect(Admin_Controller::ABOUT);
 		}
 	}
 
@@ -106,7 +106,7 @@ class About extends Admin_Controller {
 		$this->session->set_flashdata('about_published', 'Your about details has been published');
 
         //Redirect to about page
-        redirect(Admin_Controller::about);
+        redirect(Admin_Controller::ABOUT);
 	}
 
 
@@ -122,7 +122,7 @@ class About extends Admin_Controller {
 		$this->session->set_flashdata('about_unpublished', 'Your about details has been unpublished');
 
         //Redirect to about page
-        redirect(Admin_Controller::about);
+        redirect(Admin_Controller::ABOUT);
 	}
 
     /**
@@ -143,6 +143,6 @@ class About extends Admin_Controller {
 		$this->session->set_flashdata('about_deleted', 'Your about details has been deleted');
 
         //Redirect to about page
-        redirect(Admin_Controller::about);
+        redirect(Admin_Controller::ABOUT);
 	}
 }

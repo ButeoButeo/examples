@@ -51,7 +51,7 @@ class Home extends Admin_Controller {
 			$this->session->set_flashdata('home_saved', 'Your home page details has been saved');
 			
 			//Redirect
-            redirect(Admin_Controller::home);
+            redirect(Admin_Controller::HOME);
 		}
 	}
 
@@ -94,7 +94,7 @@ class Home extends Admin_Controller {
 			$this->session->set_flashdata('home_saved', 'Your home page details has been saved');
 				
 			//Redirect
-            redirect(Admin_Controller::home);
+            redirect(Admin_Controller::HOME);
 		}
 	}
 
@@ -110,7 +110,7 @@ class Home extends Admin_Controller {
 		$this->session->set_flashdata('home_published', 'Your home settings has been published');
 	
 		//Redirect
-        redirect(Admin_Controller::home);
+        redirect(Admin_Controller::HOME);
 	}
 
 
@@ -126,7 +126,7 @@ class Home extends Admin_Controller {
 		$this->session->set_flashdata('home_unpublished', 'Your home settings has been unpublished');
 	
 		//Redirect
-        redirect(Admin_Controller::home);
+        redirect(Admin_Controller::HOME);
 	}
 
     /**
@@ -147,6 +147,6 @@ class Home extends Admin_Controller {
 		$this->session->set_flashdata('home_deleted', 'Your home settings has been deleted');
 	
 		//Redirect
-        redirect(Admin_Controller::home);
+        redirect(Admin_Controller::HOME);
 	}
 }

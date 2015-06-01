@@ -23,10 +23,7 @@ class Categories extends Admin_Controller {
      * Display message and redirect
      */
 	public function add() {
-		//Validation Rules
-		$this->form_validation->set_rules('name','category name','trim|required|min_length[4]|xss_clean');
-	
-		if(!$this->form_validation->run()) {
+		if(!$this->Settings_model->verify_category()) {
 			//Views
 			$data['main_content'] = 'admin/categories/add';
 			$this->load->view('admin/layouts/main', $data);
@@ -43,7 +40,7 @@ class Categories extends Admin_Controller {
 			$this->session->set_flashdata('category_saved', 'Your category has been saved');
 				
 			//Redirect to pages
-			redirect(Admin_Controller::categories);
+			redirect(Admin_Controller::CATEGORIES);
 		}
 	}
 
@@ -53,10 +50,7 @@ class Categories extends Admin_Controller {
      * Display message and redirect
      */
 	public function edit($id) {
-		//Validation Rules
-		$this->form_validation->set_rules('name','category name','trim|required|min_length[4]|xss_clean');
-	
-		if (!$this->form_validation->run()) {
+		if (!$this->Settings_model->verify_category()) {
 			$data['category'] = $this->Settings_model->get_category($id);
 			
 			//Views
@@ -75,7 +69,7 @@ class Categories extends Admin_Controller {
 			$this->session->set_flashdata('category_saved', 'Your category has been saved');
 	
 			//Redirect to pages
-			redirect(Admin_Controller::categories);
+			redirect(Admin_Controller::CATEGORIES);
 		}
 	}
 
@@ -90,6 +84,6 @@ class Categories extends Admin_Controller {
 		$this->session->set_flashdata('category_deleted', 'Your category has been deleted');
 	
 		//Redirect to categories
-		redirect(Admin_Controller::categories);
+		redirect(Admin_Controller::CATEGORIES);
 	}
 }

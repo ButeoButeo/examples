@@ -4,10 +4,10 @@ class Admin_Controller extends CI_Controller {
     /**
      * Create Enums for Links
      */
-    const products = 'admin/products';
-    const categories = 'admin/categories';
-    const home = 'admin/home';
-    const about = 'admin/about';
+    const PRODUCTS = 'admin/products';
+    const CATEGORIES = 'admin/categories';
+    const HOME = 'admin/home';
+    const ABOUT = 'admin/about';
     const ADMINS = 'admin/admins';
 
     /**

@@ -70,6 +70,26 @@ class Settings_model extends CI_Model {
 		$this->db->delete('products', $data);
 	}
 
+    /**
+     * Verify Entered Product Data
+     * @return bool
+     */
+    function verify_product() {
+        //Validation Rules
+        $this->form_validation->set_rules('title','Title','trim|required|min_length[4]|xss_clean');
+        $this->form_validation->set_rules('description','Description','trim|required|xss_clean');
+        $this->form_validation->set_rules('specifications','Specifications','trim|required|xss_clean');
+        $this->form_validation->set_rules('price','Price','trim|required|xss_clean');
+        $this->form_validation->set_rules('published','Publish','required');
+        $this->form_validation->set_rules('category','Category','required');
+
+        if (!$this->form_validation->run()) {
+            return false ;
+        } else {
+            return true;
+        }
+    }
+
 
     /**
      * Fetch Data From categories table
@@ -115,6 +135,21 @@ class Settings_model extends CI_Model {
 		$this->db->where('id', $id);
 		$this->db->delete('categories', $data);
 	}
+
+    /**
+     * Verify Entered Category
+     * @return bool
+     */
+    function verify_category() {
+        //Validation Rule
+        $this->form_validation->set_rules('name','category name','trim|required|min_length[4]|xss_clean');
+
+        if (!$this->form_validation->run()) {
+            return false ;
+        } else {
+            return true;
+        }
+    }
 
 
     /**

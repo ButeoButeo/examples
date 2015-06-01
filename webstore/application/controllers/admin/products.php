@@ -23,26 +23,23 @@ class Products extends Admin_Controller {
 		$data['main_content'] = 'admin/products/index';
 		$this->load->view('admin/layouts/main', $data);
 	}
-	
-	//Add product
+
+    /**
+     * Add Product
+     * Load Upload Configuration and Library
+     * Verify Entered Data
+     * Insert Data into DB, Display Message and Redirect
+     */
 	public function add(){
         //Load upload configuration
         $upload = $this->config->item('products');
         $this->load->library('upload', $upload);
-		
-		//Validation Rules
-		$this->form_validation->set_rules('title','Title','trim|required|min_length[4]|xss_clean');
-		$this->form_validation->set_rules('description','Description','trim|required|xss_clean');
-		$this->form_validation->set_rules('specifications','Specifications','trim|required|xss_clean');
-		$this->form_validation->set_rules('price','Price','trim|required|xss_clean');
-		$this->form_validation->set_rules('published','Publish','required');
-		$this->form_validation->set_rules('category','Category','required');
-		
+
+        //Get needed data
 		$data['categories'] = $this->Settings_model->get_categories();
-		
 		$data['admins'] = $this->Settings_model->get_admins();
 		
-		if(!$this->form_validation->run() || !$this->upload->do_upload('userfile')){
+		if(!$this->Settings_model->verify_product() || !$this->upload->do_upload('userfile')){
 			//Views
 			$data['main_content'] = 'admin/products/add';
 			$this->load->view('admin/layouts/main', $data);
@@ -66,33 +63,29 @@ class Products extends Admin_Controller {
 			//Create Message
 			$this->session->set_flashdata('product_saved', 'Your product has been saved');
 			
-			//Redirect to products
-            redirect(Admin_Controller::products);
+			//Redirect to products page
+            redirect(Admin_Controller::PRODUCTS);
 		}
 	}
-	
-	//Edit Product
+
+    /**
+     * Edit Product
+     * Load Upload Configuration and Library
+     * Verify Entered Data
+     * Insert Data into DB, Display Message and Redirect
+     */
 	public function edit($id){
         //Load upload configuration and do upload
         $upload = $this->config->item('products');
         $this->load->library('upload', $upload);
         $this->upload->do_upload('userfile');
-		
-		//Validation Rules
-		$this->form_validation->set_rules('title','Title','trim|required|min_length[4]|xss_clean');
-		$this->form_validation->set_rules('description','Description','trim|required|xss_clean');
-		$this->form_validation->set_rules('specifications','Specifications','trim|required|xss_clean');
-		$this->form_validation->set_rules('price','Price','trim|required|mxss_clean');
-		$this->form_validation->set_rules('published','Publish','required');
-		$this->form_validation->set_rules('category','Category','required');
-	
+
+        //Get needed data
 		$data['categories'] = $this->Settings_model->get_categories();
-	
 		$data['admins'] = $this->Settings_model->get_admins();
-		
 		$data['product'] = $this->Settings_model->get_product($id);
-	
-		if(!$this->form_validation->run()){
+
+		if(!$this->Settings_model->verify_product()){
 			//Views
 			$data['main_content'] = 'admin/products/edit';
 			$this->load->view('admin/layouts/main', $data);
@@ -108,7 +101,7 @@ class Products extends Admin_Controller {
 					'category_id'   	=> $this->input->post('category'),
 					'admin_id'			=> $this->input->post('admin'),
 					'price'				=> $this->input->post('price'),
-					'published'		=> $this->input->post('published')
+					'published'		    => $this->input->post('published')
 			);
 				
 			//Products Table Insert
@@ -117,8 +110,8 @@ class Products extends Admin_Controller {
 			//Create Message
 			$this->session->set_flashdata('product_saved', 'Your product has been saved');
 				
-			//Redirect to products
-			redirect(Admin_Controller::products);
+			//Redirect to products page
+			redirect(Admin_Controller::PRODUCTS);
 		}
 	}
 
@@ -134,7 +127,7 @@ class Products extends Admin_Controller {
 		$this->session->set_flashdata('product_published', 'Your product has been published');
 	
 		//Redirect to products
-        redirect(Admin_Controller::products);
+        redirect(Admin_Controller::PRODUCTS);
 	}
 
 
@@ -143,14 +136,14 @@ class Products extends Admin_Controller {
      * Display message and redirect
      */
 	public function unpublish($id){
-		//Publish Menu Items in array
+		//Unpublish Menu Items in array
 		$this->Settings_model->unpublish_product($id);
 		 
 		//Create Message
 		$this->session->set_flashdata('product_unpublished', 'Your product has been unpublished');
 	
-		//Redirect to products
-        redirect(Admin_Controller::products);
+		//Redirect to products page
+        redirect(Admin_Controller::PRODUCTS);
 	}
 
     /**
@@ -170,7 +163,7 @@ class Products extends Admin_Controller {
 		//Create Message
 		$this->session->set_flashdata('product_deleted', 'Your product has been deleted');
 	
-		//Redirect to products
-        redirect(Admin_Controller::products);
+		//Redirect to products page
+        redirect(Admin_Controller::PRODUCTS);
 	}
 }
