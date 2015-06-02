@@ -1,5 +1,11 @@
 <?php
 class Authenticate_model extends CI_Model {
+    /**
+     * Admin LogIn - Verify Entered Data
+     * @param $username
+     * @param $password
+     * @return mixed
+     */
 	public function login_user($username, $password){
 		//Secure password
         $enc_password = md5($password);
@@ -16,7 +22,7 @@ class Authenticate_model extends CI_Model {
 	}
 
     /**
-     * Verify Entered Admin Data
+     * Verify Entered Data - New Admin
      * @return bool
      */
     function verify_login() {
