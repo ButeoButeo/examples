@@ -10,7 +10,7 @@ class Home extends Admin_Controller {
      */
 	public function index() {
 		//Get Home
-		$data['home'] = $this->Settings_model->get_home('id', 'DESC', 10);
+		$data['home'] = $this->settings_model->get_home('id', 'DESC', 10);
 		
 		//Load View
 		$data['main_content'] = 'admin/home/index';
@@ -28,7 +28,7 @@ class Home extends Admin_Controller {
         $upload = $this->config->item('home');
         $this->load->library('upload', $upload);
 
-		if(!$this->Settings_model->verify_home() || !$this->upload->do_upload('userfile')){
+		if(!$this->settings_model->verify_home() || !$this->upload->do_upload('userfile')){
 			//Views
 			$data['main_content'] = 'admin/home/add';
 			$this->load->view('admin/layouts/main', $data);
@@ -45,7 +45,7 @@ class Home extends Admin_Controller {
 			);
 			
 			//Home Table Insert
-			$this->Settings_model->insert_home($data);
+			$this->settings_model->insert_home($data);
 			
 			//Create Message
 			$this->session->set_flashdata('home_saved', 'Your home page details has been saved');
@@ -68,9 +68,9 @@ class Home extends Admin_Controller {
         $this->load->library('upload', $upload);
         $this->upload->do_upload('userfile');
 		
-		$data['home'] = $this->Settings_model->get_single_home($id);
+		$data['home'] = $this->settings_model->get_single_home($id);
 	
-		if(!$this->Settings_model->verify_home()){
+		if(!$this->settings_model->verify_home()){
 			//Views
 			$data['main_content'] = 'admin/home/edit';
 			$this->load->view('admin/layouts/main', $data);
@@ -88,7 +88,7 @@ class Home extends Admin_Controller {
 			);
 				
 			//Home Data Insert
-			$this->Settings_model->update_home($data, $id);
+			$this->settings_model->update_home($data, $id);
 				
 			//Create Message
 			$this->session->set_flashdata('home_saved', 'Your home page details has been saved');
@@ -104,7 +104,7 @@ class Home extends Admin_Controller {
      */
 	public function publish($id){
 		//Publish home page details - set value to 1
-		$this->Settings_model->publish_home($id);
+		$this->settings_model->publish_home($id);
 		 
 		//Create Message
 		$this->session->set_flashdata('home_published', 'Your home settings has been published');
@@ -120,7 +120,7 @@ class Home extends Admin_Controller {
      */
 	public function unpublish($id){
 		//Unpublish home page details - set value to 0
-		$this->Settings_model->unpublish_home($id);
+		$this->settings_model->unpublish_home($id);
 		 
 		//Create Message
 		$this->session->set_flashdata('home_unpublished', 'Your home settings has been unpublished');
@@ -141,7 +141,7 @@ class Home extends Admin_Controller {
 		unlink($path_to_file);
 		
 		//Delete form DB
-		$this->Settings_model->delete_home($id);
+		$this->settings_model->delete_home($id);
 		 
 		//Create Message
 		$this->session->set_flashdata('home_deleted', 'Your home settings has been deleted');

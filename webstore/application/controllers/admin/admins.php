@@ -10,7 +10,7 @@ class Admins extends Admin_Controller {
      */
 	public function index(){
 		//Get admins
-		$data['admins'] = $this->Settings_model->get_admins();
+		$data['admins'] = $this->settings_model->get_admins();
 		
 		//Views
         $data['main_content'] = 'admin/admins/index';
@@ -23,7 +23,7 @@ class Admins extends Admin_Controller {
      * Display message and redirect
      */
 	public function add(){
-		if(!$this->Settings_model->verify_admin()) {
+		if(!$this->settings_model->verify_admin()) {
 			//Views
 			$data['main_content'] = 'admin/admins/add';
 			$this->load->view('admin/layouts/main', $data);
@@ -38,7 +38,7 @@ class Admins extends Admin_Controller {
 			);
 				
 			//Table Insert
-			$this->Settings_model->insert_admin($data);
+			$this->settings_model->insert_admin($data);
 				
 			//Create Message
 			$this->session->set_flashdata('admin_saved', 'Admin has been added');
@@ -55,9 +55,9 @@ class Admins extends Admin_Controller {
      * Display message and redirect
      */
 	public function edit($id){
-		$data['admin'] = $this->Settings_model->get_admin($id);
+		$data['admin'] = $this->settings_model->get_admin($id);
 
-        if(!$this->Settings_model->verify_admin()) {
+        if(!$this->settings_model->verify_admin()) {
 			//Views
 			$data['main_content'] = 'admin/admins/edit';
 			$this->load->view('admin/layouts/main', $data);
@@ -71,7 +71,7 @@ class Admins extends Admin_Controller {
 			);
 	
 			//Table Update
-			$this->Settings_model->update_admin($data, $id);
+			$this->settings_model->update_admin($data, $id);
 	
 			//Create Message
 			$this->session->set_flashdata('admin_saved', 'Admin has been saved');
@@ -86,7 +86,7 @@ class Admins extends Admin_Controller {
      * Display message and redirect
      */
 	public function delete($id){
-		$this->Settings_model->delete_admin($id);
+		$this->settings_model->delete_admin($id);
 			
 		//Create Message
 		$this->session->set_flashdata('admin_deleted', 'Admin has been deleted');

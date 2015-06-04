@@ -10,7 +10,7 @@ class Contact extends Admin_Controller {
      */
 	public function index() {
 		//Get Contact
-		$data['contact'] = $this->Settings_model->get_contact_data('id', 'ASC', 10);
+		$data['contact'] = $this->settings_model->get_contact_data('id', 'ASC', 10);
 		
 		//Load View
 		$data['main_content'] = 'admin/contact/index';
@@ -25,14 +25,14 @@ class Contact extends Admin_Controller {
      * @param $id
      */
 	public function edit($id){
-        $data['contact'] = $this->Settings_model->get_single_contact_data($id);
+        $data['contact'] = $this->settings_model->get_single_contact_data($id);
 
         //Load upload configuration and do upload
         $upload = $this->config->item('contact');
         $this->load->library('upload', $upload);
         $this->upload->do_upload('userfile');
 
-		if(!$this->Settings_model->verify_contact()) {
+		if(!$this->settings_model->verify_contact()) {
 			//Views
 			$data['main_content'] = 'admin/contact/edit';
 			$this->load->view('admin/layouts/main', $data);
@@ -53,7 +53,7 @@ class Contact extends Admin_Controller {
 			}
 
 			// Contact Table Insert
-			$this->Settings_model->update_contact_data($data, $id);
+			$this->settings_model->update_contact_data($data, $id);
 				
 			// Create Message
 			$this->session->set_flashdata('contact_saved', 'Your contact details has been saved');

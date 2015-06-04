@@ -5,7 +5,7 @@ class Shop extends CI_Controller {
      */
 	public function index() {
 		//Get Home
-		$data['home'] = $this->Settings_model->get_home('id', 'ASC', 10);
+		$data['home'] = $this->settings_model->get_home('id', 'ASC', 10);
 		//Load View
 		$data['main_content'] = 'home';
 		$this->load->view('layouts/main', $data);
@@ -16,7 +16,7 @@ class Shop extends CI_Controller {
      */
 	public function about() {
 		//Get About
-		$data['about'] = $this->Settings_model->get_about('id', 'DESC', 10);
+		$data['about'] = $this->settings_model->get_about('id', 'DESC', 10);
 		//Load View
 		$data['main_content'] = 'about';
 		$this->load->view('layouts/main', $data);
@@ -46,13 +46,13 @@ class Shop extends CI_Controller {
 		
 		$data['map'] = $this->googlemaps->create_map();
 		
-		$data['contact'] = $this->Settings_model->get_contact_data('id', 'ASC', 10);
+		$data['contact'] = $this->settings_model->get_contact_data('id', 'ASC', 10);
 
         /**
          * Check the validity of entered data and send an email
          * Display message and redirect
          */
-        if (!$this->Settings_model->verify_email()) {
+        if (!$this->settings_model->verify_email()) {
             //Load View
             $data['main_content'] = 'contact';
             $this->load->view('layouts/main', $data);

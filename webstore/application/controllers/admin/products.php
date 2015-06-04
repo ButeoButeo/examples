@@ -8,16 +8,16 @@ class Products extends Admin_Controller {
     public function index() {
 		if($this->input->post('keywords')){
 			//Get Filtered products
-			$data['products'] = $this->Product_model->get_filtered_products($this->input->post('keywords'),'id','DESC',10);
+			$data['products'] = $this->product_model->get_filtered_products($this->input->post('keywords'),'id','DESC',10);
 		} else {
 			//Get Products
-			$data['products'] = $this->Product_model->get_products('id','DESC');
+			$data['products'] = $this->product_model->get_products('id','DESC');
 		}
 		//Get Categories
-		$data['categories'] = $this->Settings_model->get_categories('id', 'DESC');
+		$data['categories'] = $this->settings_model->get_categories('id', 'DESC');
 		
 		//Get Admins
-		$data['admins'] = $this->Settings_model->get_admins('id', 'DESC');
+		$data['admins'] = $this->settings_model->get_admins('id', 'DESC');
 		
 		//Load View
 		$data['main_content'] = 'admin/products/index';
@@ -36,10 +36,10 @@ class Products extends Admin_Controller {
         $this->load->library('upload', $upload);
 
         //Get needed data
-		$data['categories'] = $this->Settings_model->get_categories();
-		$data['admins'] = $this->Settings_model->get_admins();
+		$data['categories'] = $this->settings_model->get_categories();
+		$data['admins'] = $this->settings_model->get_admins();
 		
-		if(!$this->Settings_model->verify_product() || !$this->upload->do_upload('userfile')){
+		if(!$this->settings_model->verify_product() || !$this->upload->do_upload('userfile')){
 			//Views
 			$data['main_content'] = 'admin/products/add';
 			$this->load->view('admin/layouts/main', $data);
@@ -58,7 +58,7 @@ class Products extends Admin_Controller {
 			);
 			
 			//Products Table Insert
-			$this->Settings_model->insert_product($data);
+			$this->settings_model->insert_product($data);
 			
 			//Create Message
 			$this->session->set_flashdata('product_saved', 'Your product has been saved');
@@ -81,11 +81,11 @@ class Products extends Admin_Controller {
         $this->upload->do_upload('userfile');
 
         //Get needed data
-		$data['categories'] = $this->Settings_model->get_categories();
-		$data['admins'] = $this->Settings_model->get_admins();
-		$data['product'] = $this->Settings_model->get_product($id);
+		$data['categories'] = $this->settings_model->get_categories();
+		$data['admins'] = $this->settings_model->get_admins();
+		$data['product'] = $this->settings_model->get_product($id);
 
-		if(!$this->Settings_model->verify_product()){
+		if(!$this->settings_model->verify_product()){
 			//Views
 			$data['main_content'] = 'admin/products/edit';
 			$this->load->view('admin/layouts/main', $data);
@@ -105,7 +105,7 @@ class Products extends Admin_Controller {
 			);
 				
 			//Products Table Insert
-			$this->Settings_model->update_product($data, $id);
+			$this->settings_model->update_product($data, $id);
 				
 			//Create Message
 			$this->session->set_flashdata('product_saved', 'Your product has been saved');
@@ -121,7 +121,7 @@ class Products extends Admin_Controller {
      */
 	public function publish($id){
 		//Publish Menu Items in array
-		$this->Settings_model->publish_product($id);
+		$this->settings_model->publish_product($id);
 		 
 		//Create Message
 		$this->session->set_flashdata('product_published', 'Your product has been published');
@@ -137,7 +137,7 @@ class Products extends Admin_Controller {
      */
 	public function unpublish($id){
 		//Unpublish Menu Items in array
-		$this->Settings_model->unpublish_product($id);
+		$this->settings_model->unpublish_product($id);
 		 
 		//Create Message
 		$this->session->set_flashdata('product_unpublished', 'Your product has been unpublished');
@@ -158,7 +158,7 @@ class Products extends Admin_Controller {
 		unlink($path_to_file);
 		
 		//Delete form DB
-		$this->Settings_model->delete_product($id);
+		$this->settings_model->delete_product($id);
 		 
 		//Create Message
 		$this->session->set_flashdata('product_deleted', 'Your product has been deleted');

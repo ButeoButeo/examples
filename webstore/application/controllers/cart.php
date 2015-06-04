@@ -67,7 +67,7 @@ class cart extends CI_Controller {
      */
 	public function process() {
 		if ($_POST) {
-			if (!$this->Product_model->verify_order_data()) {
+			if (!$this->product_model->verify_order_data()) {
 				//Show View
 				$data['main_content'] = 'cart';
 				$this->load->view('layouts/main', $data);
@@ -80,7 +80,7 @@ class cart extends CI_Controller {
                     //Get Data
 					$item_id = $this->input->post('item_code')[$key];
 					$item_name = $this->input->post('item_name')[$key];
-					$product = $this->Product_model->get_product_details($item_id);
+					$product = $this->product_model->get_product_details($item_id);
 					//Price x Quantity
 					$subtotal = ($product->price * $this->input->post('item_qty')[$key]);
 					$this->total = $this->total + $subtotal;
@@ -100,7 +100,7 @@ class cart extends CI_Controller {
 					);
 
 					//Add Order Data
-					$this->Product_model->add_order($order_data);
+					$this->product_model->add_order($order_data);
 
 					//Load Email Configuration, Library and Message
                     $email = $this->config->load('email');

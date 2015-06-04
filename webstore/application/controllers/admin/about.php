@@ -10,7 +10,7 @@ class About extends Admin_Controller {
      */
 	public function index() {
 		//Get About
-		$data['about'] = $this->Settings_model->get_about('id', 'DESC', 10);
+		$data['about'] = $this->settings_model->get_about('id', 'DESC', 10);
 		
 		//Load View
 		$data['main_content'] = 'admin/about/index';
@@ -28,7 +28,7 @@ class About extends Admin_Controller {
         $upload = $this->config->item('about');
         $this->load->library('upload', $upload);
 
-		if(!$this->Settings_model->verify_about() || !$this->upload->do_upload('userfile')){
+		if(!$this->settings_model->verify_about() || !$this->upload->do_upload('userfile')){
 			//Views
 			$data['main_content'] = 'admin/about/add';
 			$this->load->view('admin/layouts/main', $data);
@@ -43,7 +43,7 @@ class About extends Admin_Controller {
 			);
 			
 			//About Table Insert
-			$this->Settings_model->insert_about($data);
+			$this->settings_model->insert_about($data);
 			
 			//Create Message
 			$this->session->set_flashdata('about_saved', 'Your about page details has been saved');
@@ -66,9 +66,9 @@ class About extends Admin_Controller {
         $this->load->library('upload', $upload);
 		$this->upload->do_upload('userfile');
 		
-		$data['about'] = $this->Settings_model->get_single_about($id);
+		$data['about'] = $this->settings_model->get_single_about($id);
 	
-		if(!$this->Settings_model->verify_about()){
+		if(!$this->settings_model->verify_about()){
 			//Views
 			$data['main_content'] = 'admin/about/edit';
 			$this->load->view('admin/layouts/main', $data);
@@ -84,7 +84,7 @@ class About extends Admin_Controller {
 			);
 				
 			//About Table Insert
-			$this->Settings_model->update_about($data, $id);
+			$this->settings_model->update_about($data, $id);
 				
 			//Create Message
 			$this->session->set_flashdata('about_saved', 'Your about details has been saved');
@@ -100,7 +100,7 @@ class About extends Admin_Controller {
      */
 	public function publish($id){
 		//Publish about details - set value to 1
-		$this->Settings_model->publish_about($id);
+		$this->settings_model->publish_about($id);
 		 
 		//Create Message
 		$this->session->set_flashdata('about_published', 'Your about details has been published');
@@ -116,7 +116,7 @@ class About extends Admin_Controller {
      */
 	public function unpublish($id){
 		//Unpublish about details - set value to 0
-		$this->Settings_model->unpublish_about($id);
+		$this->settings_model->unpublish_about($id);
 		 
 		//Create Message
 		$this->session->set_flashdata('about_unpublished', 'Your about details has been unpublished');
@@ -137,7 +137,7 @@ class About extends Admin_Controller {
 		unlink($path_to_file);
 		
 		//Delete form DB
-		$this->Settings_model->delete_about($id);
+		$this->settings_model->delete_about($id);
 		 
 		//Create Message
 		$this->session->set_flashdata('about_deleted', 'Your about details has been deleted');

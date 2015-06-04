@@ -7,7 +7,7 @@ class Authenticate extends CI_Controller {
      *
      */
 	public function login() {
-		if (!$this->Authenticate_model->verify_login()) {
+		if (!$this->authenticate_model->verify_login()) {
 			//Load View
 			$this->load->view('admin/layouts/login');
 		} else {
@@ -16,7 +16,7 @@ class Authenticate extends CI_Controller {
 			$password = $this->input->post('password');
 			
 			//Validate Username & Password
-			$user_id = $this->Authenticate_model->login_user($username, $password);
+			$user_id = $this->authenticate_model->login_user($username, $password);
 			
 			if($user_id){
 				$user_data = array(
