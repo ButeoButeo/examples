@@ -6,7 +6,7 @@
             //Collect Data
             $item_id = $this->input->post('item_code')[$key];
             $item_name = $this->input->post('item_name')[$key];
-            $product = $this->product_model->get_product_details($item_id);
+            $product = $this->Product_model->get_product_details($item_id);
 
             //Price x Quantity
             $subtotal = ($product->price * $this->input->post('item_qty')[$key]);

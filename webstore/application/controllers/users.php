@@ -7,12 +7,12 @@ class Users extends CI_controller {
      * Check the Validity of Entered Data, Load View or Redirect
      */
 	public function register() {
-        if (!$this->user_model->verify_user()) {
+        if (!$this->User_model->verify_user()) {
 			//Show View
 			$data['main_content'] = 'register';
 			$this->load->view('layouts/main', $data);
 		} else {
-			 if($this->user_model->register()){
+			 if($this->User_model->register()){
 				$this->session->set_flashdata('registered', 'You are now registered and can login');
 				redirect(products);
             }
@@ -29,7 +29,7 @@ class Users extends CI_controller {
 		$username = $this->input->post('username');
 		$password = md5($this->input->post('password'));
 		
-		$user_id = $this->user_model->login($username, $password);
+		$user_id = $this->User_model->login($username, $password);
 		
 		//Validate user
         if ($user_id){
