@@ -152,4 +152,66 @@ class JobsController extends AppController {
             $this->Session->setFlash(__('Unable to add your job'));
         }
     }
+
+
+    /**
+     * Edit Job
+     * @param $id
+     */
+    public function edit($id) {
+        //Get Categories for select list
+        $options = array(
+            'order' => array('Category.name' => 'asc')
+        );
+        //Get Categories
+        $categories = $this->Job->Category->find('list', $options);
+        //Set Categories
+        $this->set('categories', $categories);
+
+        //Get types for select list
+        $types = $this->Job->Type->find('list');
+        //Set Types
+        $this->set('types', $types);
+
+        if (!$id) {
+            throw new NotFoundException(__('Invalid job listing'));
+        }
+
+        $job = $this->Job->findById($id);
+
+        if (!$job) {
+            throw new NotFoundException(__('Invalid job listing'));
+        }
+
+        if ($this->request->is(array('job', 'put'))) {
+            $this->Job->id = $id;
+
+            if ($this->Job->save($this->request->data)) {
+                $this->Session->setFlash(__('Your job has been updated'));
+                return $this->redirect(array('action' => 'index'));
+            }
+            $this->Session->setFlash(__('Unable to update your job'));
+        }
+
+        if (!$this->request->data) {
+            $this->request->data = $job;
+        }
+    }
+
+    /**
+     * Delete Job
+     * @param $id
+     */
+    public function delete($id){
+        if ($this->request->is('get')) {
+            throw new MethodNotAllowedException();
+        }
+
+        if ($this->Job->delete($id)) {
+            $this->Session->setFlash(
+                __('The job with id: %s has been deleted.', h($id))
+            );
+            return $this->redirect(array('action' => 'index'));
+        }
+    }
 }
