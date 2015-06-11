@@ -18,4 +18,25 @@ class UsersController extends AppController {
             $this->Session->setFlash(__('There was a problem creating your account'));
         }
     }
+
+    /**
+     * User Login
+     * Set Message and redirect
+     */
+    public function login(){
+        if($this->request->is('post')){
+            if($this->Auth->login()){
+                return $this->redirect($this->Auth->redirect());
+            }
+            $this->Session->setFlash(__('Invalid username or password, try again'));
+        }
+    }
+
+    /**
+     * User Logout
+     * Logout and redirect
+     */
+    public function logout() {
+        return $this->redirect($this->Auth->logout());
+    }
 }

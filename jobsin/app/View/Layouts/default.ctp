@@ -26,10 +26,18 @@
 <body>
 <div id="container" class="grid">
     <header>
-        <div class="col_6 column">
+        <div class="col_4 column">
             <h1><a href="<?php echo $this->webroot; ?>"><strong>JobsIn</strong> Artificer</a></h1>
         </div>
-        <div class="col_6 column right">
+
+        <div class="col_6 column right welcome">
+            <?php if (AuthComponent::user('id')): ?>
+            <h6>Welcome <strong><?php echo $userData['username']; ?></strong></h6>
+            <a href="<?php echo $this->webroot; ?>users/logout">Logout</a>
+            <?php endif; ?>
+        </div>
+
+        <div class="col_2 column right">
             <form id="add_job_link" action="<?php echo $this->webroot; ?>jobs/add">
                 <button class="large blue"><i class="fa fa-plus"></i> Add Job</button>
             </form>

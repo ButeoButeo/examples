@@ -51,4 +51,8 @@ class AppController extends Controller {
         //Define Public Actions
         $this->Auth->allow('index', 'browse', 'register');
     }
+
+    public function beforeRender() {
+        $this->set('userData', $this->Auth->user());
+    }
 }
