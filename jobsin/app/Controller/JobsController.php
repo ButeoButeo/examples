@@ -7,27 +7,23 @@ class JobsController extends AppController {
      * Set Options, Get Job Info and Load View
      */
     public function index() {
+        //Set Title
+        $this->set('title_for_layout', 'JobsIn | Welcome');
+
         //Set Category Query Options
         $options = array(
             'order' => array('Category.name' => 'asc')
         );
-        //Get Categories
-        $categories = $this->Job->Category->find('all', $options);
-        //Set Categories
-        $this->set('categories', $categories);
+        //Get and Set Categories
+        $this->set('categories', $this->Job->Category->find('all', $options));
 
-        //Set Query Options
+        //Set Job Query Options
         $options = array(
-          'order' => array('Job.created' => 'desc'),
+            'order' => array('Job.created' => 'desc'),
             'limit' => 10
         );
-        //Get Job Info
-        $jobs = $this->Job->find('all', $options);
-
-        //Set Title
-        $this->set('title_for_layout', 'JobsIn | Welcome');
-
-        $this->set('jobs', $jobs);
+        //Get and Set Job Info
+        $this->set('jobs', $this->Job->find('all', $options));
     }
 
     /**
@@ -36,6 +32,9 @@ class JobsController extends AppController {
      * Set Conditions and Query Options, Get Job Info and Load View
      */
     public function browse($category = null) {
+        //Set Title
+        $this->set('title_for_layout', 'JobsIn | Browse For A Job');
+
         //Init Conditions Array
         $conditions = array();
 
@@ -73,10 +72,8 @@ class JobsController extends AppController {
         $options = array(
                     'order' => array('Category.name' => 'asc')
         );
-        //Get Categories
-        $categories = $this->Job->Category->find('all', $options);
-        //Set Categories
-        $this->set('categories', $categories);
+        //Get and Set Categories
+        $this->set('categories', $this->Job->Category->find('all', $options));
 
         if ($category != null) {
             //Match Category
@@ -84,19 +81,15 @@ class JobsController extends AppController {
                     'Job.category_id LIKE' => "%" . $category . "%"
             );
         }
-        //Set Query Options
+
+        //Set Job Query Options
         $options = array(
                     'order'         => array('Job.created' => 'desc'),
                     'conditions'    => $conditions,
                     'limit'         => 8
         );
-        //Get Job Info
-        $jobs = $this->Job->find('all', $options);
-
-        //Set Title
-        $this->set('title_for_layout', 'JobsIn | Browse For A Job');
-
-        $this->set('jobs', $jobs);
+        // Get and Set Jobs
+        $this->set('jobs', $this->Job->find('all', $options));
     }
 
 
@@ -110,14 +103,12 @@ class JobsController extends AppController {
         }
 
         $job = $this->Job->findById($id);
-
         if (!$job) {
             throw new NotFoundException(__('Invalid job listing'));
         }
 
         //Set Title
         $this->set('title_for_layout', $job['Job']['title']);
-
         $this->set('job', $job);
     }
 
@@ -129,15 +120,11 @@ class JobsController extends AppController {
         $options = array(
                 'order' => array('Category.name' => 'asc')
         );
-        //Get Categories
-        $categories = $this->Job->Category->find('list', $options);
-        //Set Categories
-        $this->set('categories', $categories);
+        //Get and Set Categories
+        $this->set('categories', $this->Job->Category->find('list', $options));
 
-        //Get types for select list
-        $types = $this->Job->Type->find('list');
-        //Set Types
-        $this->set('types', $types);
+        //Get and Set types for select list
+        $this->set('types', $this->Job->Type->find('list'));
 
         if ($this->request->is('post')) {
             $this->Job->create();
@@ -163,22 +150,17 @@ class JobsController extends AppController {
         $options = array(
             'order' => array('Category.name' => 'asc')
         );
-        //Get Categories
-        $categories = $this->Job->Category->find('list', $options);
-        //Set Categories
-        $this->set('categories', $categories);
+        //Get and Set Categories
+        $this->set('categories', $this->Job->Category->find('list', $options));
 
-        //Get types for select list
-        $types = $this->Job->Type->find('list');
-        //Set Types
-        $this->set('types', $types);
+        //Get and Set types for select list
+        $this->set('types', $this->Job->Type->find('list'));
 
         if (!$id) {
             throw new NotFoundException(__('Invalid job listing'));
         }
 
         $job = $this->Job->findById($id);
-
         if (!$job) {
             throw new NotFoundException(__('Invalid job listing'));
         }

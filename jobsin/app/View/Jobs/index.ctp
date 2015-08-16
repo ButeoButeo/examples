@@ -1,7 +1,3 @@
-<!--Include Search Box-->
-<?php echo $this->element('search'); ?>
-<br>
-
 <div id="jobs_image">
     <?php echo $this->Html->image('jobs_background.jpg', array('alt' => 'job-img', 'border' => '0')); ?>
 </div>
