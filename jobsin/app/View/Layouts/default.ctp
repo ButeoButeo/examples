@@ -64,10 +64,7 @@
     </div>
 
     <div class="clearfix"></div>
-
-    <footer>
-        <p>Copyright &copy; 2015, JobsIn, All Rights Reserved</p>
-    </footer>
+    <?php echo $this->element('footer'); ?>
 </div> <!-- End Grid -->
 </body>
 </html>

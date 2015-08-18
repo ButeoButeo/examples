@@ -32,6 +32,8 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
 
+    public $uses = array("Menu");
+
     public $components = array(
         'Session',
         'Auth' => array(
@@ -50,6 +52,7 @@ class AppController extends Controller {
     public function beforeFilter() {
         //Define Public Actions
         $this->Auth->allow('index', 'browse', 'register');
+        $this->set('menus', $this->Menu->find('all'));
     }
 
     public function beforeRender() {
