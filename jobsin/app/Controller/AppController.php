@@ -32,7 +32,7 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
 
-    public $uses = array("Menu");
+    public $uses = array("Menu", "MenuLink", "Page");
 
     public $components = array(
         'Session',
@@ -53,6 +53,7 @@ class AppController extends Controller {
         //Define Public Actions
         $this->Auth->allow('index', 'browse', 'register');
         $this->set('menus', $this->Menu->find('all'));
+        $this->set('menu_links', $this->MenuLink->find('all'));
     }
 
     public function beforeRender() {
