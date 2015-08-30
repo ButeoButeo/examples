@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 19, 2015 at 11:03 PM
+-- Generation Time: Aug 30, 2015 at 06:33 PM
 -- Server version: 5.6.25
 -- PHP Version: 5.6.11
 
@@ -43,6 +43,26 @@ INSERT INTO `categories` (`id`, `name`) VALUES
 (5, 'Healthcare'),
 (6, 'Retail & Sales'),
 (7, 'Technology');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `faqs`
+--
+
+CREATE TABLE IF NOT EXISTS `faqs` (
+  `question` varchar(255) NOT NULL,
+  `answer` varchar(255) NOT NULL,
+  `id` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `faqs`
+--
+
+INSERT INTO `faqs` (`question`, `answer`, `id`) VALUES
+('Some question?', 'Awesome answer', 1),
+('Second question?', 'This answer is shit', 2);
 
 -- --------------------------------------------------------
 
@@ -105,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `menu_links` (
   `id` int(11) NOT NULL,
   `menu_id` varchar(255) NOT NULL,
   `label` varchar(255) NOT NULL,
-  `page_id` varchar(255) NOT NULL
+  `page_id` int(11) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
@@ -113,15 +133,15 @@ CREATE TABLE IF NOT EXISTS `menu_links` (
 --
 
 INSERT INTO `menu_links` (`id`, `menu_id`, `label`, `page_id`) VALUES
-(1, '1', 'info@jobsin.com', '6'),
-(2, '1', '+25896245', '5'),
-(3, '1', '<i class="fa fa-facebook"></i>', 'http://facebook.com'),
-(4, '1', '<i class="fa fa-twitter"></i>', 'http://twiter.com'),
-(5, '2', 'Our Story', '3'),
-(6, '2', 'Our Team', '3'),
-(7, '3', 'Some Dummy Triq 85', '4'),
-(8, '3', 'San Gwann, SG 528', '3'),
-(9, '3', 'Malta', '4');
+(1, '1', 'info@jobsin.com', 6),
+(2, '1', '+25896245', 5),
+(3, '1', '<i class="fa fa-facebook"></i>', 0),
+(4, '1', '<i class="fa fa-twitter"></i>', 0),
+(5, '2', 'Our Story', 3),
+(6, '2', 'Our Team', 3),
+(7, '3', 'Some Dummy Triq 85', 4),
+(8, '3', 'San Gwann, SG 528', 3),
+(9, '3', 'Malta', 4);
 
 -- --------------------------------------------------------
 
@@ -208,6 +228,12 @@ ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `faqs`
+--
+ALTER TABLE `faqs`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `jobs`
 --
 ALTER TABLE `jobs`
@@ -252,6 +278,11 @@ ALTER TABLE `users`
 --
 ALTER TABLE `categories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT for table `faqs`
+--
+ALTER TABLE `faqs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `jobs`
 --

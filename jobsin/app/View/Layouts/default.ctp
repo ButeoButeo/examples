@@ -51,6 +51,7 @@
             <li <?php echo ($this->here == '/jobsin/jobs/browse') ? 'class="current"' : '' ?>><a href="<?php echo $this->webroot; ?>jobs/browse"><i class="fa fa-desktop"></i> Browse Jobs</a></li>
             <li <?php echo ($this->here == '/jobsin/users/register') ? 'class="current"' : '' ?>><a href="<?php echo $this->webroot; ?>users/register"><i class="fa fa-user"></i> Register</a></li>
             <li <?php echo ($this->here == '/jobsin/users/login') ? 'class="current"' : '' ?>><a href="<?php echo $this->webroot; ?>users/login"><i class="fa fa-key"></i> Login</a></li>
+            <li style="float: right;" <?php echo ($this->here == '/faqs') ? 'class="current"' : '' ?>><a href="<?php echo $this->webroot; ?>faqs"><i class="fa fa-question"></i> FAQ's</a></li>
         </ul>
     </div>
 

@@ -102,16 +102,10 @@ border:1px solid #ccc;
 
 #footer{
 text-align:center;
-padding:20px;
-margin:0;
-border-top:1px solid #ddd;
-color:#999;
-font-size:0.8em;
+color:#68b0fa;
+font-size:1em;
 text-shadow:0px 1px 1px #fff;
 position: relative;
-top:0;
-left:0;
-background:#fff;
 }
 
 	#link-top{
@@ -268,6 +262,7 @@ display:block;
 }
 
 footer {
-    padding: 30px 0 30px 0;
+    background-color:#efefef;
+    padding: 20px;
     text-align: center;
 }

@@ -140,7 +140,6 @@ class JobsController extends AppController {
         }
     }
 
-
     /**
      * Edit Job
      * @param $id
